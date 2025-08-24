@@ -66,4 +66,11 @@ cart.forEach(item => {
 });
 cart=newCart;
 console.log(cart);
+removeProductContainer(productId);
+saveCart();
 }
+
+function removeProductContainer(productId){
+   document.querySelector(`.js-remove-from-cart-${productId}`).remove();
+}
+

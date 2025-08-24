@@ -209,3 +209,17 @@
   margin-top: 11px;
   margin-bottom: 15px;
 }
+
+.quantity-input{
+  width: 30px;
+  display: none;
+}
+.save-quantity-link{
+  color: rgb(1, 124, 182);
+  display: none;
+}
+
+.js-display-save-and-input{
+  display: initial;
+}
+

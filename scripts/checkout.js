@@ -54,13 +54,16 @@ const html=` <div class="cart-item-container js-remove-from-cart-${matchingProdu
                 <div class="product-quantity">
                   <span>
                     Quantity:
-                    <span class="quantity-label">
+                    <span class="quantity-label js-prod-quantity${matchingProduct.id}">
                     ${cartItem.quantity}
                     </span>
                   </span>
                   <span class="update-quantity-link link-primary js-update-btn">
                     Update
                   </span>
+                   <input type="text" class="quantity-input js-unique-${matchingProduct.id}">
+                  <span class="save-quantity-link link-primary js-save-id-${matchingProduct.id}">Save</span>
+
                   <span class="delete-quantity-link link-primary">
                     Delete
                   </span>
@@ -126,6 +129,7 @@ document.querySelector(".js-total-cart-items").innerHTML=`${total} items`;
 
 //SHOWS TOTAL ITEMS IN ORDER SUMMARY
 document.querySelector(".order-sumry-total-items").innerHTML=`Items (${total}):`;
+saveCart();
 }
 
  showTotalCartQuantity();
@@ -157,7 +161,7 @@ orderSummary.addEventListener("click", (e) => {
   if (!container) return; // not a product click
 
   const id = container.dataset.productContainerId;
-  const matchingProduct = products.find(product => product.id === id);
+  // const matchingProduct = products.find(product => product.id === id);
 // console.log(matchingProduct);
 
   // Check if clicked on update button (or inside it)
@@ -165,15 +169,86 @@ orderSummary.addEventListener("click", (e) => {
   const deleteBtn=e.target.closest(".delete-quantity-link");
   if (updateBtn) {
     console.log("hello, update button clicked:", updateBtn);
+    updateCart(id);
+
   }
   else if(deleteBtn){
     console.log("hello deleted",deleteBtn);
     deleteFromCart(id);
-    document.querySelector(`.js-remove-from-cart-${id}`).remove();
     showTotalCartQuantity();
-    saveCart();
+  }
+  if(e.target.closest(`.js-save-id-${id}`)){
+     saveUpdatedQuantity(id);
   }
 });
+
+
+function updateCart(productId){
+if(!productId) return;
+
+  cart.forEach(item=>{
+    if(item.id===productId){
+     
+    const quantityInputElement=document.querySelector(`.js-unique-${productId}`)
+    const saveBtn= document.querySelector(`.js-save-id-${productId}`)
+     
+    quantityInputElement.classList.add("js-display-save-and-input");
+    saveBtn.classList.add("js-display-save-and-input");
+      
+    }
+  });
+}
+
+
+function saveUpdatedQuantity(productId) {
+  if (!productId) return;
+
+  const container = document.querySelector(`.js-remove-from-cart-${productId}`);
+  console.log(container);
+  if (!container) return;
+
+  const quantityLabelSpan = container.querySelector(`.js-prod-quantity${productId}`);
+  const quantityInputElement = container.querySelector(`.js-unique-${productId}`);
+  const saveBtn = container.querySelector(`.js-save-id-${productId}`);
+
+
+  const rawValue = quantityInputElement.value.trim();
+
+  if (rawValue === "") {
+    quantityInputElement.focus();
+    return;
+  }
+
+  const updateValue = parseInt(rawValue, 10);
+
+  if (Number.isNaN(updateValue)) {
+    console.warn("Invalid number entered");
+    quantityInputElement.focus();
+    return;
+  }
+
+  // Update the cart item
+
+  const item = cart.find(item => item.id === productId);
+  if (item) {
+    item.quantity += updateValue;
+    quantityLabelSpan.textContent = item.quantity;
+
+    if (item.quantity <= 0) {
+      deleteFromCart(productId);
+    }
+  }
+
+  // Update totals
+  showTotalCartQuantity();
+
+  // Reset input AFTER successful update
+  quantityInputElement.value = "";
+
+  // Hide input & save button
+  quantityInputElement.classList.remove("js-display-save-and-input");
+  saveBtn.classList.remove("js-display-save-and-input");
+}
 
 
 
