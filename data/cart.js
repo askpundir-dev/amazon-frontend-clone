@@ -54,7 +54,16 @@ export function showAddToCartMessage(productId){
   console.log(addToCartMsgTimeouts);
 }
 
-
 export function saveCart() {
   localStorage.setItem("cart", JSON.stringify(cart));
+}
+
+export function deleteFromCart(productId){
+const newCart=[];
+cart.forEach(item => {
+  if(item.id !==productId)
+  newCart.push(item);
+});
+cart=newCart;
+console.log(cart);
 }
