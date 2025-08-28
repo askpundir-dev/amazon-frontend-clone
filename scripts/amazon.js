@@ -1,7 +1,8 @@
 import { products } from "../data/products.js";
-import {cart, addToCart, saveCart} from "../data/cart.js";
+import { addToCart, saveCart, getCartTotal} from "../data/cart.js";
 import { formatCurrency } from "./utils/money.js";
-const productGrid = document.querySelector(".products-grid");
+import searchProduct from "../data/searchedProducts.js";
+export const productGrid = document.querySelector(".products-grid");
 // console.log(productGrid);
 //  localStorage.removeItem("cart");
 
@@ -9,9 +10,9 @@ const productGrid = document.querySelector(".products-grid");
 
 //RENDERING ALL PRODUCTS WE HAVE WITH THIS FUNCTION CALL
 renderUi(products);
-const main=document.querySelector(".main");
-const searchBar = document.querySelector(".search-bar");
-const focusThemeDiv = document.querySelector(".bar-focus");
+export const main=document.querySelector(".main");
+export const searchBar = document.querySelector(".search-bar");
+export const focusThemeDiv = document.querySelector(".bar-focus");
 // console.log(header);
 
 //ADDING FOCUS THEME WHEN CLICKING ON SearchBar AND REMOVING WHEN CLICKING ANYWHERE OUTSIDE IT
@@ -53,6 +54,27 @@ document.addEventListener("scroll", () => {
 });
 
 
+
+//TO DISPLAY Added MESSAGE WHEN CLICKING ADD TO CART BUTTON
+const addToCartMsgTimeouts = {};
+function showAddToCartMessage(productId){
+//CLEARING PREVIOUS TIMEOUT
+  clearTimeout(addToCartMsgTimeouts[productId]);
+
+  const messageContainer = productGrid.querySelector(
+    `div[data-message-id="${productId}"]`
+  );
+  // console.log(messageContainer);
+ if (!messageContainer) return;
+
+  messageContainer.classList.add("display-message");
+ 
+  addToCartMsgTimeouts[productId]  = setTimeout(() => {
+    messageContainer.classList.remove("display-message");
+  }, 1200);
+  console.log(addToCartMsgTimeouts);
+}
+
 productGrid.addEventListener("click", (e) => {
   if (e.target.classList.contains("add-to-cart-button")) {
     //const btn = e.target; //CAN DO LIKE THIS 
@@ -63,7 +85,8 @@ productGrid.addEventListener("click", (e) => {
     // console.log(productId);
   
     addToCart(productId);
-    updateCartQuantity();
+    showAddToCartMessage(productId);
+    showTotalCartQuantity();
   }
   else if(e.target.classList.contains("product-image")){
     openImageFullView(e.target.dataset.imageId);
@@ -99,7 +122,7 @@ function openImageFullView(imageId) {
 const cartQuantityDiv = document.querySelector(".js-cart-quantity");
 // console.log(cartQuantityDiv);
 
-function updateCartQuantity() {
+function showTotalCartQuantity() {
   //WAY 1:
   // let cartQuantity = 0;
   // cart.forEach((item) => (cartQuantity += item.quantity));
@@ -107,76 +130,15 @@ function updateCartQuantity() {
   // cartQuantityDiv.innerHTML = cartQuantity;
   
   //WAY 2:
-cartQuantityDiv.innerHTML=cart.reduce((acc,curItem)=>acc+=curItem.quantity,0);
+cartQuantityDiv.innerHTML=getCartTotal('quantity');
 
 }
 
-updateCartQuantity();
+showTotalCartQuantity();
 saveCart();
 
 
-
-
-function searchProduct(){
-   const searchProductArray=[];
-  let value=searchBar.value.trim().toLowerCase();
-//  console.log(value);
-
-  //USING for LOOP
-/*
-  for(let i=0;i<products.length;i++){
-    // console.log(products);
-    for(let j=0;j<products[i].keywords.length;j++){
-        console.log(products[i].keywords);
-      }
-    }
-*/
-
-//USING array.forEach() 
-products.forEach(product=>{
-  // console.log(product);
-  // console.log(product.keywords);
-
-  product.keywords.forEach(keyword=>{
-//  console.log(keyword);
-
- if(keyword.toLowerCase().trim().includes(value)){  
-  // console.log(keyword);
-  // console.log(product);
-
-  //FIND IF PRODUCT ALREADY IN ARRAY SO THAT WE  DON'T DISPLAY SINGLE PRODUCT MULTIPLE TIMES 
-  
-  //FIRST WAY USING array.find() TO CHECK IF PRODUCT IS ALREADY PRESENT AND ONLY PUSH WHEN NOT PRESENT
-  // const productPresent=searchProductArray.find(prod=> prod===product);
-  // console.log(productPresent);
-  // if(!productPresent)  searchProductArray.push(product);
-
-  //SECOND WAY TO DIRECTLY CHECK ARRAY USING array.includes(product) AND PUSH ONLY WHEN PRODUCT IS NOT PRESENT 
-  if(!searchProductArray.includes(product)) searchProductArray.push(product);    
-}
-});
-});
-
-// console.log(searchProductArray);
-if(searchProductArray.length)  renderUi(searchProductArray);
-  
-else {
-  productGrid.classList.add('is-empty');
-  productGrid.innerHTML = `
-    <div class="no-results">
-      <img src="/images/no-results.jpg" alt="No results" class="no-results-img">
-      <p class="no-results-text">Sorry, we don't have this product in our inventory yet.</p>
-      <button class="no-results-btn">Go back to all products</button>
-    </div>
-  `;
-  document.querySelector(".no-results-btn").addEventListener("click", () => {
-    renderUi(products); // restore all products
-  });
-}
-searchBar.value="";
-}
-
-function renderUi(array){
+export function renderUi(array){
   // if(array.length){}
   productGrid.classList.remove('is-empty');
   let productHTML="";

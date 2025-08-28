@@ -234,6 +234,36 @@
       </div>           
     </div>                             
    <!-- checkout.html -->
-<!-- <script type="module" src="scripts/checkout.js"></script> -->
+<!-- <script type="module" src="scripts/checkout.js">
+
+ function saveUpdatedQuantity(productId,updateBtn) {
+ 
+  const els = query(productId);
+  if (!els) return;
+
+  // const rawValue = els.input.value.trim();
+  // if (rawValue === "") {
+  //   els.input.focus();
+  //   return;
+  // }
+  els.input.value=2;
+   const updatedValue=updateCartQuantity({rawValue,productId,els});
+  //  console.log(updatedValue);
+  //  console.log(typeof updatedValue);
+   if(updatedValue===null) return;
+   if(updatedValue<=0){
+    // console.log("bye bye");
+    deleteFromCart(productId);
+    removeProductContainer(productId);
+   }
+ else{
+   els.quantityLabel.textContent = updatedValue;
+   els.input.value = "";
+   els.input.classList.remove("js-display-save-and-input");
+   els.saveBtn.classList.remove("js-display-save-and-input");
+  }
+}
+
+</script> -->
   </body>
 </html>

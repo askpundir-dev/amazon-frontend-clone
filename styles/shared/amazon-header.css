@@ -89,6 +89,10 @@
   border-bottom-right-radius: 4px;
   flex-shrink: 0;
 }
+.search-button:hover{
+background-color:orange ;
+
+}
 
 .search-icon {
   height: 22px;
@@ -153,4 +157,7 @@
   height: 100%;
   background-color: #0000005c;
   position: fixed;
+  top:60px;
+  left:0;
+  right: 0;
 }

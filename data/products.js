@@ -1,5 +1,188 @@
 // export const products = 
 export const products = [
+  
+   {
+    id: "101a1f2e-23b3-4cd1-a322-8f61f2c11e01",
+    image: "images/products/gaming-mouse.webp",
+    name: "RGB Gaming Mouse - Wired",
+    rating: { stars: 4.5, count: 1432 },
+    priceCents: 2599,
+    keywords: ["gaming", "mouse", "accessories", "pc"]
+  },
+  {
+    id: "202b2e3f-45c4-4de2-b433-9g72g3d22f02",
+    image: "images/products/mechanical-keyboard.webp",
+    name: "Mechanical Gaming Keyboard - Blue Switches",
+    rating: { stars: 5, count: 985 },
+    priceCents: 6499,
+    keywords: ["gaming", "keyboard", "mechanical", "pc"]
+  },
+  {
+    id: "77a845b1-16ed-4eac-bdf9-5b591882113d",
+    image: "images/products/countertop-blender-64-oz.jpg",
+    name: "Countertop Blender - 64oz, 1400 Watts",
+    rating: {
+      stars: 4,
+      count: 3
+    },
+    priceCents: 10747,
+    keywords: [
+      "food blenders",
+      "kitchen",
+      "appliances"
+    ]
+  },
+  {
+    id: "36c64692-677f-4f58-b5ec-0dc2cf109e27",
+    image: "images/products/floral-mixing-bowl-set.jpg",
+    name: "10-Piece Mixing Bowl Set with Lids - Floral",
+    rating: {
+      stars: 5,
+      count: 679
+    },
+    priceCents: 3899,
+    keywords: [
+      "mixing bowls",
+      "baking",
+      "cookware",
+      "kitchen"
+    ]
+  },
+  {
+    id: "aaa65ef3-8d6f-4eb3-bc9b-a6ea49047d8f",
+    image: "images/products/kitchen-paper-towels-30-pack.jpg",
+    name: "2-Ply Kitchen Paper Towels - 30 Pack",
+    rating: {
+      stars: 4.5,
+      count: 1045
+    },
+    priceCents: 5799,
+    keywords: [
+      "kitchen",
+      "kitchen towels",
+      "tissues"
+    ]
+  },
+  {
+    id: "bc2847e9-5323-403f-b7cf-57fde044a955",
+    image: "images/products/men-cozy-fleece-zip-up-hoodie-red.jpg",
+    name: "Men's Full-Zip Hooded Fleece Sweatshirt",
+    rating: {
+      stars: 4.5,
+      count: 3157
+    },
+    priceCents: 2400,
+    keywords: [
+      "sweaters",
+      "hoodies",
+      "apparel",
+      "mens"
+    ]
+  },
+  {
+    id: "303c3g4h-56d5-4ef3-c544-1h83h4e33g03",
+    image: "images/products/gaming-headset.webp",
+    name: "Surround Sound Gaming Headset",
+    rating: { stars: 4, count: 2205 },
+    priceCents: 4599,
+    keywords: ["gaming", "headphones", "mic", "audio"]
+  },
+  {
+    id: "404d4h5i-67e6-4fg4-d655-2i94i5f44h04",
+    image: "images/products/controller.webp",
+    name: "Wireless Game Controller - Black",
+    rating: { stars: 4.5, count: 3240 },
+    priceCents: 3999,
+    keywords: ["gaming", "controller", "console", "pc"]
+  },
+  {
+    id: "505e5i6j-78f7-5gh5-e766-3j05j6g55i05",
+    image: "images/products/gaming-chair.webp",
+    name: "Ergonomic Gaming Chair with Lumbar Support",
+    rating: { stars: 4.5, count: 1887 },
+    priceCents: 15999,
+    keywords: ["gaming", "chair", "furniture", "comfort"]
+  },
+  {
+    id: "606f6j7k-89g8-6hi6-f877-4k16k7h66j06",
+    image: "images/products/monitor-27inch.webp",
+    name: "27-Inch 165Hz Gaming Monitor",
+    rating: { stars: 5, count: 740 },
+    priceCents: 29999,
+    keywords: ["gaming", "monitor", "pc", "display"]
+  },
+  {
+    id: "707g7k8l-90h9-7ij7-g988-5l27l8i77k07",
+    image: "images/products/laptop-cooler.webp",
+    name: "RGB Laptop Cooling Pad - 6 Fans",
+    rating: { stars: 4, count: 1254 },
+    priceCents: 3599,
+    keywords: ["gaming", "cooling", "laptop", "accessories"]
+  },
+  {
+    id: "808h8l9m-01i1-8jk8-h099-6m38m9j88l08",
+    image: "images/products/book-hp.webp",
+    name: "Harry Potter Box Set (7 Books)",
+    rating: { stars: 5, count: 9234 },
+    priceCents: 7499,
+    keywords: ["books", "harry potter", "fantasy", "novel"]
+  },
+  {
+    id: "909i9m0n-12j2-9kl9-i110-7n49n0k99m09",
+    image: "images/products/book-lotr.webp",
+    name: "The Lord of the Rings Trilogy",
+    rating: { stars: 5, count: 5120 },
+    priceCents: 6599,
+    keywords: ["books", "lotr", "fantasy", "novel"]
+  },
+  {
+    id: "010j0n1o-23k3-0lm0-j221-8o50o1l00n10",
+    image: "images/products/book-got.webp",
+    name: "Game of Thrones (A Song of Ice and Fire Set)",
+    rating: { stars: 4.5, count: 4120 },
+    priceCents: 8999,
+    keywords: ["books", "got", "fantasy", "george rr martin"]
+  },
+  {
+    id: "111k1o2p-34l4-1mn1-k332-9p61p2m11o11",
+    image: "images/products/book-manga.webp",
+    name: "Naruto Manga Box Set Vol 1-27",
+    rating: { stars: 5, count: 7230 },
+    priceCents: 11999,
+    keywords: ["books", "manga", "naruto", "anime"]
+  },
+  {
+    id: "212l2p3q-45m5-2no2-l443-0q72q3n22p12",
+    image: "images/products/book-eldenring.webp",
+    name: "Elden Ring Official Strategy Guide",
+    rating: { stars: 4.5, count: 830 },
+    priceCents: 3999,
+    keywords: ["books", "gaming", "elden ring", "guide"]
+  },
+  {
+    id: "313m3q4r-56n6-3op3-m554-1r83r4o33q13",
+    image: "images/products/console.webp",
+    name: "Next-Gen Gaming Console",
+    rating: { stars: 5, count: 15800 },
+    priceCents: 49999,
+    keywords: ["gaming", "console", "ps", "xbox"]
+  },
+  {
+    id: "414n4r5s-67o7-4pq4-n665-2s94s5p44r14",
+    image: "images/products/book-minecraft.webp",
+    name: "Minecraft: The Official Guide Collection",
+    rating: { stars: 4.5, count: 2345 },
+    priceCents: 3299,
+    keywords: ["books", "minecraft", "guide", "gaming"]
+  },
+  {
+    id: "515o5s6t-78p8-5qr5-o776-3t05t6q55s15",
+    image: "images/products/gaming-laptop.webp",
+    name: "Gaming Laptop - RTX Graphics, 16GB RAM",
+    rating: { stars: 5, count: 4100 },
+    priceCents: 129999,
+    keywords: ["gaming", "laptop", "pc", "portable"]
+  },
   {
     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
     image: "images/products/athletic-cotton-socks-6-pairs.jpg",
@@ -594,68 +777,6 @@ export const products = [
       "running shoes",
       "footwear",
       "womens"
-    ]
-  },
-  {
-    id: "77a845b1-16ed-4eac-bdf9-5b591882113d",
-    image: "images/products/countertop-blender-64-oz.jpg",
-    name: "Countertop Blender - 64oz, 1400 Watts",
-    rating: {
-      stars: 4,
-      count: 3
-    },
-    priceCents: 10747,
-    keywords: [
-      "food blenders",
-      "kitchen",
-      "appliances"
-    ]
-  },
-  {
-    id: "36c64692-677f-4f58-b5ec-0dc2cf109e27",
-    image: "images/products/floral-mixing-bowl-set.jpg",
-    name: "10-Piece Mixing Bowl Set with Lids - Floral",
-    rating: {
-      stars: 5,
-      count: 679
-    },
-    priceCents: 3899,
-    keywords: [
-      "mixing bowls",
-      "baking",
-      "cookware",
-      "kitchen"
-    ]
-  },
-  {
-    id: "aaa65ef3-8d6f-4eb3-bc9b-a6ea49047d8f",
-    image: "images/products/kitchen-paper-towels-30-pack.jpg",
-    name: "2-Ply Kitchen Paper Towels - 30 Pack",
-    rating: {
-      stars: 4.5,
-      count: 1045
-    },
-    priceCents: 5799,
-    keywords: [
-      "kitchen",
-      "kitchen towels",
-      "tissues"
-    ]
-  },
-  {
-    id: "bc2847e9-5323-403f-b7cf-57fde044a955",
-    image: "images/products/men-cozy-fleece-zip-up-hoodie-red.jpg",
-    name: "Men's Full-Zip Hooded Fleece Sweatshirt",
-    rating: {
-      stars: 4.5,
-      count: 3157
-    },
-    priceCents: 2400,
-    keywords: [
-      "sweaters",
-      "hoodies",
-      "apparel",
-      "mens"
     ]
   },
   
