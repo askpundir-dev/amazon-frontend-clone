@@ -1,7 +1,7 @@
 import { products } from "./products.js";
-import { searchBar,productGrid,renderUi } from "../scripts/amazon.js";
+// import { searchBar,productGrid,renderUi } from "../scripts/amazon.js";
 
- function searchProduct(){
+export function searchProduct({searchBar,productGrid,renderUi}){
    const searchProductArray=[];
   let value=searchBar.value.trim().toLowerCase();
 
@@ -62,5 +62,3 @@ else {
 searchBar.value="";
 }
 
-
-export default searchProduct;

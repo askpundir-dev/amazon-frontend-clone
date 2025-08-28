@@ -190,7 +190,7 @@ height: 55vh;
   max-width: 100%;
   max-height: 100%;
   border-radius: 20px; 
-  cursor: default;
+  cursor: zoom-in;
 }
 
 @media (orientation: portrait){

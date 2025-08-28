@@ -1,8 +1,8 @@
 import { products } from "../data/products.js";
 import { addToCart, saveCart, getCartTotal} from "../data/cart.js";
 import { formatCurrency } from "./utils/money.js";
-import searchProduct from "../data/searchedProducts.js";
-export const productGrid = document.querySelector(".products-grid");
+import {searchProduct} from "../data/searchedProducts.js";
+const productGrid = document.querySelector(".products-grid");
 // console.log(productGrid);
 //  localStorage.removeItem("cart");
 
@@ -11,7 +11,7 @@ export const productGrid = document.querySelector(".products-grid");
 //RENDERING ALL PRODUCTS WE HAVE WITH THIS FUNCTION CALL
 renderUi(products);
 export const main=document.querySelector(".main");
-export const searchBar = document.querySelector(".search-bar");
+ const searchBar = document.querySelector(".search-bar");
 export const focusThemeDiv = document.querySelector(".bar-focus");
 // console.log(header);
 
@@ -27,7 +27,7 @@ document.addEventListener("click", (event) => {
 //  const searchBtn=event.target;
 //  console.log(searchBtn);
 //  console.log("hello");
- searchProduct();
+ searchProduct({searchBar,productGrid,renderUi});
   }
 });
 
@@ -37,7 +37,7 @@ if(e.key==="Enter"){
 // console.log(e); 
   e.preventDefault();
  
-  searchProduct();
+  searchProduct({searchBar,productGrid,renderUi});
   focusThemeDiv.classList.remove("search-bar-focus-theme"); //REMOVES SEARCHBAR FOCUS THEME WHEN I PRESS ENTER AFTER TYPING PRODUCT NAME
     
 }
@@ -138,7 +138,7 @@ showTotalCartQuantity();
 saveCart();
 
 
-export function renderUi(array){
+ function renderUi(array){
   // if(array.length){}
   productGrid.classList.remove('is-empty');
   let productHTML="";
