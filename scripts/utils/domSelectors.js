@@ -1,6 +1,5 @@
 export const selectors = {
   checkOut:".js-total-cart-items",
-  orderTotalItems:'.order-sumry-total-items',
 };
 // PARAMETER scope=document  DOCUMENT IS DEFAULT VALUE IF WE DONT PASS ANY ARGUMENT IT WILL RUN ON FULL DOCUMNET LIKE- 
 //--document.queryselectorAll() but when WE PROVIDE IT ARGUMENT LIKE IN SCOPE WE PROVIDE--

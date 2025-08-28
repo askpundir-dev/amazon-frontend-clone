@@ -115,8 +115,12 @@
   margin-bottom: 5px;
 }
 
-.product-quantity .link-primary {
-  margin-left: 3px;
+
+@media (max-width:778px) {
+
+  .product-quantity .link-primary {
+  margin-left: 4px;
+}
 }
 
 @media (max-width: 1000px) {

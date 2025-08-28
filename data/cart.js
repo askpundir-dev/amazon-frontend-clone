@@ -3,7 +3,6 @@ import { findMatchingProductWithId } from "../scripts/utils/findMatchingProducts
 
 export let cart =JSON.parse(localStorage.getItem("cart"))||[];
 
-cart.reverse();
 
 export function addToCart(productId,quantityToAdd=1) {
   if(!productId) return null;
