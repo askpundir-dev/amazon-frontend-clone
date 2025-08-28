@@ -1,22 +1,18 @@
 import { findMatchingProductWithId } from "../scripts/utils/findMatchingProducts.js";
-import { products } from "./products.js";
+// import { products } from "./products.js";
 
 export let cart =JSON.parse(localStorage.getItem("cart"))||[];
 
+cart.reverse();
 
-
-export function addToCart(productId) {
-  const product = products.find((p) => p.id === productId);
-
-  if (!product) return;
-  const select = document.querySelector(`.js-product-selector-${product.id}`);
-  const selectedQuantity = parseInt(select.value) || 1;
-  // console.log(select.value);
+export function addToCart(productId,quantityToAdd=1) {
+  if(!productId) return null;
+  const selectedQuantity = parseInt(quantityToAdd);
   // console.log(typeof selectedQuantity);
   
   // Check if this product already exists in cart
   const cartItem = cart.find((item) => item.id === productId);
-  console.log(cartItem);
+  // console.log(cartItem);
 
   //initial value always undefined(falsy value) so it always moves to else block
   //  this condition is truthy only when cart has matching items.
@@ -24,20 +20,16 @@ export function addToCart(productId) {
     cartItem.quantity += selectedQuantity; // ✅ increase existing quantity
   } else {
     cart.push({
-      id: product.id,
+      id: productId,
       quantity: selectedQuantity,
       deliveryOptionId:'1',
     });
   }
-
-  // console.log(cart);
-
-  //THIS MAKES DROPDOWN RESET TO 1 AFTER PRESSING add-to-cart-button
-  select.value = "1"; //  console.log(select.value);
-  saveCart()
+  saveToStorage();
+  return 1;
 }
 
-export function saveCart() {
+export function saveToStorage() {
   localStorage.setItem("cart", JSON.stringify(cart));
 }
 
@@ -49,7 +41,7 @@ cart.forEach(item => {
 });
 cart=newCart;
 console.log(cart);
-saveCart();
+saveToStorage();
 }
 
 
@@ -73,7 +65,7 @@ console.log(matchingProduct);
 matchingProduct.deliveryOptionId=deliveryOptionId;
 
 console.log(matchingProduct.deliveryOptionId);
-saveCart();
+saveToStorage();
 
 }
 

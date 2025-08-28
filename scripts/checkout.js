@@ -1,5 +1,5 @@
 import { products } from "../data/products.js";
-import { cart, deleteFromCart, saveCart, getCartTotal, updateDeliveryOptionId } from "../data/cart.js";
+import { cart, deleteFromCart,getCartTotal, updateDeliveryOptionId, saveToStorage } from "../data/cart.js";
 import { formatCurrency } from "./utils/money.js";
 import { getDeliveryDate } from "./utils/deliveryTime.js";
 import { deliveryOptions, findMatchingOption } from "../data/deliveryOptions.js";
@@ -139,7 +139,7 @@ domElements.checkOut.innerHTML=`${itemsQuantity} items`;
 
 //SHOWS TOTAL ITEMS IN ORDER SUMMARY
 domElements.orderTotalItems.innerHTML=`Items (${itemsQuantity}):`;
-saveCart();
+saveToStorage();
 }
 
 

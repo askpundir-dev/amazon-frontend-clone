@@ -1,19 +1,17 @@
 import { products } from "../data/products.js";
-import { addToCart, saveCart, getCartTotal} from "../data/cart.js";
+import { addToCart, saveToStorage, getCartTotal } from "../data/cart.js";
 import { formatCurrency } from "./utils/money.js";
 import {searchProduct} from "../data/searchedProducts.js";
 const productGrid = document.querySelector(".products-grid");
 // console.log(productGrid);
-//  localStorage.removeItem("cart");
 
-//let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
 //RENDERING ALL PRODUCTS WE HAVE WITH THIS FUNCTION CALL
 renderUi(products);
+
 export const main=document.querySelector(".main");
  const searchBar = document.querySelector(".search-bar");
 export const focusThemeDiv = document.querySelector(".bar-focus");
-// console.log(header);
 
 //ADDING FOCUS THEME WHEN CLICKING ON SearchBar AND REMOVING WHEN CLICKING ANYWHERE OUTSIDE IT
 document.addEventListener("click", (event) => {
@@ -82,9 +80,10 @@ productGrid.addEventListener("click", (e) => {
    
     //OR LIKE THIS NO NEED OF EXTRA VARIABLE
     const productId=e.target.dataset.productId;
-    // console.log(productId);
-  
-    addToCart(productId);
+    const productSelectorEle=productGrid.querySelector(`.js-product-selector-${productId}`)
+    const isAdded=addToCart(productId,productSelectorEle.value);
+    console.log(isAdded);
+    if(isAdded) productSelectorEle.value=1;
     showAddToCartMessage(productId);
     showTotalCartQuantity();
   }
@@ -96,7 +95,7 @@ productGrid.addEventListener("click", (e) => {
 
 
 function openImageFullView(imageId) {
-  const image = document.querySelector(`img[data-image-id="${imageId}"]`);
+  const image = productGrid.querySelector(`img[data-image-id="${imageId}"]`);
   if (!image) return;
 
   // clone the image so we don't mess with the original
@@ -119,10 +118,11 @@ function openImageFullView(imageId) {
   main.after(overlay);
 }
 
-const cartQuantityDiv = document.querySelector(".js-cart-quantity");
-// console.log(cartQuantityDiv);
 
 function showTotalCartQuantity() {
+  const cartQuantityDiv = document.querySelector(".js-cart-quantity");
+  // console.log(cartQuantityDiv);
+  
   //WAY 1:
   // let cartQuantity = 0;
   // cart.forEach((item) => (cartQuantity += item.quantity));
@@ -130,12 +130,12 @@ function showTotalCartQuantity() {
   // cartQuantityDiv.innerHTML = cartQuantity;
   
   //WAY 2:
-cartQuantityDiv.innerHTML=getCartTotal('quantity');
+cartQuantityDiv.textContent=getCartTotal('quantity');
 
 }
 
 showTotalCartQuantity();
-saveCart();
+saveToStorage();
 
 
  function renderUi(array){
