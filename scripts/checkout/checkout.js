@@ -18,7 +18,6 @@ const orderSummary=document.querySelector(".js-order-summary");
 console.log(orderSummary);
 
 
-
 // USNING FUNCTION getDOM FOR QUERING THE DOM
 // calling this function when code runs for the first time-- 
 //--because these selectors are not unique and they wont change in our program further
@@ -33,7 +32,7 @@ function  showTotalCheckoutQuantity(){
 domElements.checkOut.innerHTML=`${itemsQuantity} items`;
 console.log(domElements);
 //SHOWS TOTAL ITEMS IN ORDER SUMMARY
-document.querySelector('.order-sumry-total-items').innerHTML=`Items (${itemsQuantity}):`
+// document.querySelector('.order-sumry-total-items').innerHTML=`Items (${itemsQuantity}):`
 saveToStorage();
 }
 
@@ -136,13 +135,15 @@ orderSummary.addEventListener("click", (e) => {
   if (e.target===updateBtn) {
     console.log("Update clicked:", id, updateBtn);
     modifyUpdateBtn({ id, updateBtn, container, saveBtn });
+    
   }
   //TARGETING THIS WAY GIVES ACCESS TO CLICK ANY CHILD INSIDE saveBtn 
  
   // --SAVE--
   if(e.target.closest(`.js-save`)){
     console.log("Save clicked:", id, saveBtn);
-    saveUpdatedQuantity(id, updateBtn, saveBtn);  
+    saveUpdatedQuantity(id, updateBtn, saveBtn); 
+     if(!cart.length) renderCartProducts(); 
   }
 
   //I TARGETED DELETE BUTTON USING e.target.closest()
@@ -156,6 +157,8 @@ orderSummary.addEventListener("click", (e) => {
     removeProductContainer(id);
     showTotalCheckoutQuantity();
     renderPaymentSummery();
+    // console.log(cart.length);
+    if(!cart.length) renderCartProducts();
   }
   
   if(e.target.closest(`input[name='delivery-option-${id}'`)){

@@ -1,37 +1,41 @@
 import { cart } from "../../data/cart.js";
 import { findMatchingProduct } from "../utils/findMatchingProducts.js";
 import { products } from "../../data/products.js";
-import { findMatchingOption, deliveryOptions } from "../../data/deliveryOptions.js";
+import {
+  findMatchingOption,
+  deliveryOptions,
+} from "../../data/deliveryOptions.js";
 import { getDeliveryDate } from "../utils/deliveryTime.js";
 import { formatCurrency } from "../utils/money.js";
 
-export function renderCartProducts(orderSummary){
+export function renderCartProducts(orderSummary) {
+  if (cart.length) {
+    let summaryHTML = "";
 
-let summaryHTML="";
+    cart.forEach((cartItem) => {
+      // console.log(cartItem.id);
+      //USING ARRAY.FIND() TO COMPARE THE cartItem.id with product.id
+      //  let matchingProduct=products.find(product=>product.id===cartItem.id);
 
-cart.forEach((cartItem) => {
+      //CREATED A FUNCTION FOR FINDING MATCHING ITEMS BECAUSE THIS CODE IS REPEATED MULTIPLE TIMES
+      let matchingProduct = findMatchingProduct(products, cartItem);
 
-  // console.log(cartItem.id);
-  //USING ARRAY.FIND() TO COMPARE THE cartItem.id with product.id
-//  let matchingProduct=products.find(product=>product.id===cartItem.id);
+      //OR USING forEach() WE CAN DO THIS WAY
+      // let matchingProduct;
+      // products.forEach(product=>{
+      //   if(product.id===cartItem.id){
+      //     console.log(product);
+      //     console.log(product.id);
+      //     matchingProduct= product;
+      //   }
+      //   });
 
- //CREATED A FUNCTION FOR FINDING MATCHING ITEMS BECAUSE THIS CODE IS REPEATED MULTIPLE TIMES
-  let matchingProduct=findMatchingProduct(products,cartItem);
-
- //OR USING forEach() WE CAN DO THIS WAY 
-// let matchingProduct;
-// products.forEach(product=>{
-//   if(product.id===cartItem.id){
-//     console.log(product);
-//     console.log(product.id);
-//     matchingProduct= product;
-//   }
-//   });
-
-// console.log(matchingProduct);
-const deliveryOptionId=cartItem.deliveryOptionId;
-const deliveryOption=findMatchingOption(deliveryOptionId);
-const html=` <div class="cart-item-container js-remove-from-cart-${matchingProduct.id}" data-product-container-id="${matchingProduct.id}">
+      // console.log(matchingProduct);
+      const deliveryOptionId = cartItem.deliveryOptionId;
+      const deliveryOption = findMatchingOption(deliveryOptionId);
+      const html = ` <div class="cart-item-container js-remove-from-cart-${
+        matchingProduct.id
+      }" data-product-container-id="${matchingProduct.id}">
             <div class="delivery-date js-date-div-${matchingProduct.id}">
               Delivery date: ${getDeliveryDate(deliveryOption.deliveryDays)}
             </div>
@@ -53,7 +57,9 @@ const html=` <div class="cart-item-container js-remove-from-cart-${matchingProdu
                     <span class="quantity-label js-prod-quantity">
                     ${cartItem.quantity}
                     </span>
-                    <input type="number" class="quantity-input js-quantity-input" value='${cartItem.quantity}'>
+                    <input type="number" class="quantity-input js-quantity-input" value='${
+                      cartItem.quantity
+                    }'>
                   </span>
                   <span class="update-quantity-link link-primary js-update-btn">
                     Update
@@ -70,33 +76,38 @@ const html=` <div class="cart-item-container js-remove-from-cart-${matchingProdu
                 <div class="delivery-options-title">
                   Choose a delivery option:
                 </div>
-                     ${deliveryOptionsHTML(matchingProduct,cartItem)}
+                     ${deliveryOptionsHTML(matchingProduct, cartItem)}
               </div>
             </div>
           </div>
         </div>`;
-        summaryHTML+=html;
-      
-});
-//console.log(summaryHTML);
-orderSummary.innerHTML=summaryHTML;
+      summaryHTML += html;
+    });
+    //console.log(summaryHTML);
+    orderSummary.innerHTML = summaryHTML;
 
-function deliveryOptionsHTML(matchingProduct,cartItem){
-
-  if(!matchingProduct&&!cartItem) return;
-  let html='';
-  deliveryOptions.forEach(option=>{
-  const deliveryDate=getDeliveryDate(option.deliveryDays);
-  const priceString=option.priceCents===0?
-  'FREE Shipping':
-  `$${formatCurrency(option.priceCents)} - Shipping`;
-  const isChecked=option.id===cartItem.deliveryOptionId;
-  // console.log(priceString);
-  // const someHtml=`${option.priceCents===0?'Free Shipping':'$'+formatCurrency(option.priceCents)+' - Shipping'}`
-  // console.log(someHtml);
-            html+=`<div class="delivery-option">
-                              <input type="radio" ${isChecked?'checked':''} class="delivery-option-input js-option-${option.id}"
-                                name="delivery-option-${matchingProduct.id}" data-option-id='${option.id}'>
+    function deliveryOptionsHTML(matchingProduct, cartItem) {
+      if (!matchingProduct && !cartItem) return;
+      let html = "";
+      deliveryOptions.forEach((option) => {
+        const deliveryDate = getDeliveryDate(option.deliveryDays);
+        const priceString =
+          option.priceCents === 0
+            ? "FREE Shipping"
+            : `$${formatCurrency(option.priceCents)} - Shipping`;
+        const isChecked = option.id === cartItem.deliveryOptionId;
+        // console.log(priceString);
+        // const someHtml=`${option.priceCents===0?'Free Shipping':'$'+formatCurrency(option.priceCents)+' - Shipping'}`
+        // console.log(someHtml);
+        html += `<div class="delivery-option">
+                              <input type="radio" ${
+                                isChecked ? "checked" : ""
+                              } class="delivery-option-input js-option-${
+          option.id
+        }"
+                                name="delivery-option-${
+                                  matchingProduct.id
+                                }" data-option-id='${option.id}'>
                               <div>
                                 <div class="delivery-option-date">
                                   ${deliveryDate}
@@ -105,8 +116,31 @@ function deliveryOptionsHTML(matchingProduct,cartItem){
                                 ${priceString}
                                 </div>
                               </div>
-                            </div>`
-  });
-  return html;
+                            </div>`;
+      });
+      return html;
+    }
+  } else {
+    cartIsEmpty();
+  }
 }
+
+function cartIsEmpty() {
+  const main = document.querySelector(".main");
+  console.log(main);
+  if (!main) return;
+
+  if (!cart.length) {
+    main.innerHTML = `
+<div class="empty-cart-image-container">
+  <img class="empty-cart-image" src="images/cart-is-empty.svg" alt="empty-cart">
+</div>
+<div class="cart-text-link-container">
+ <p class="empty-cart-text"> Your Amazon Cart is empty</p> 
+<a class="empty-Cart-link" href="/amazon.html">Go Back To Home Page</a>
+</div>
+`;
+    main.classList.add("js-cart-is-empty");
+    main.classList.remove('main');
+  }
 }
