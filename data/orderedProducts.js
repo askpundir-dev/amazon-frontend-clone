@@ -1,2 +1,2 @@
-export let orderedProducts=[];
+// export let orderedProducts=[];
 // JSON.parse(localStorage.getItem('orderedProducts'))||[];

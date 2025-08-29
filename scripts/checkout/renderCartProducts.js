@@ -11,8 +11,8 @@ import { formatCurrency } from "../utils/money.js";
 export function renderCartProducts(orderSummary) {
   if (cart.length) {
     let summaryHTML = "";
-
-    cart.forEach((cartItem) => {
+const sortedProducts=cart.sort((a,b)=>b. orderTimestamp-a. orderTimestamp);
+ sortedProducts.forEach((cartItem) => {
       // console.log(cartItem.id);
       //USING ARRAY.FIND() TO COMPARE THE cartItem.id with product.id
       //  let matchingProduct=products.find(product=>product.id===cartItem.id);

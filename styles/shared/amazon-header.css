@@ -152,12 +152,18 @@ background-color:orange ;
   text-align: center;
 }
 
-.bar-focus.search-bar-focus-theme{
+.bar-focus.search-bar-focus-theme {
   width: 100%;
   height: 100%;
-  background-color: #0000005c;
+  background-color: rgba(0, 0, 0, 0); /* start transparent */
   position: fixed;
-  top:60px;
-  left:0;
-  right: 0;
+  top: 60px;
+  left: 0;
+  transition: background-color 0.4s ease-in-out;
 }
+
+
+.bar-focus.search-bar-focus-theme.active {
+  background-color: #000000d1; 
+}
+

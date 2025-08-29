@@ -22,6 +22,7 @@ export function addToCart(productId,quantityToAdd=1) {
   } else {
     cart.push({
       id: productId,
+      orderTimestamp: Date.now(), //for sorting
       quantity: selectedQuantity,
       deliveryOptionId:'1',
     });
@@ -30,14 +31,10 @@ export function addToCart(productId,quantityToAdd=1) {
   return 1;
 }
 
-export function saveToStorage() {
-  if(cart){
-    localStorage.setItem("cart", JSON.stringify(cart));
-  }
+export function saveToStorage() {  
+ localStorage.setItem("cart", JSON.stringify(cart));
 
-if(orderedProducts){
-  localStorage.setItem('orderedProducts',JSON.stringify(orderedProducts));
-}
+localStorage.setItem('orderedProducts',JSON.stringify(orderedProducts));
 
 }
 

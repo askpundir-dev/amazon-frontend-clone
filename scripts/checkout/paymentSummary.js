@@ -63,38 +63,40 @@ const totalCents=totalBeforeTaxCents+tax;
           </button>`
           ;
 
-  const placeOrderBtn=paymentSummaryElement.querySelector('.place-order-button');
-  console.log(placeOrderBtn);
+const placeOrderBtn = paymentSummaryElement.querySelector('.place-order-button');
+placeOrderBtn.onclick = () => {
+  console.log('order-placed');
+  placeYourOrder(totalCents);
+  setTimeout(() => window.location.href = 'orders.html', 100);
+};
 
-placeOrderBtn.addEventListener('click',()=>{
-console.log('order-placed');
-placeYourOrder(totalCents);
-window.location.href='orders.html';
-});
 }
 
 export let orderedProducts=JSON.parse(localStorage.getItem('orderedProducts'))||[];
 function placeYourOrder(totalCents){
-  const dateToady=getDeliveryDate();
+  const dateToady=getDeliveryDate();//if no argument is passed gets the today's date 
   console.log(dateToady);
-  let orderedProds=[];
- cart.forEach(cartItem=>{
-console.log(cartItem);
-orderedProds.push(cartItem);
+  let orderedProds=[...cart];
+  const orderId = crypto.randomUUID();
 
+//  cart.forEach(cartItem=>{
+// console.log(cartItem);
+// orderedProds.push(cartItem);
+
+// });
+
+orderedProducts.push({
+  orderId,
+  orderPlacedDate: dateToady,
+  orderTimestamp: Date.now(),
+  orderTotalPrice: totalCents,
+  ordered: orderedProds,
 });
-
-orderedProducts=[
-  {
-    orderPlacedDate:dateToady,
-    orderTotalPrice:totalCents,
-    ordered:orderedProds,
-  }
-]
 cart.splice(0,cart.length);
 saveToStorage();
 cartIsEmpty();
 renderCartProducts();
-  console.log(orderedProducts);
+
+console.log(orderedProducts);
 }
 

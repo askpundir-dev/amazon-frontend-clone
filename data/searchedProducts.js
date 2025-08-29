@@ -5,7 +5,7 @@ export function searchProduct({searchBar,productGrid,renderUi}){
    const searchProductArray=[];
   let value=searchBar.value.trim().toLowerCase();
 
-  
+  if(value==='')  window.location.href='amazon.html';
 //  console.log(value);
 
   //USING for LOOP
@@ -26,7 +26,7 @@ products.forEach(product=>{
   product.keywords.forEach(keyword=>{
 //  console.log(keyword);
 
- if(keyword.toLowerCase().trim().includes(value)){  
+ if(keyword.includes(value)||product.name.toLowerCase().includes(value)){  
   // console.log(keyword);
   // console.log(product);
 

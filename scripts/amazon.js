@@ -12,13 +12,14 @@ renderUi(products);
 export const main=document.querySelector(".main");
  const searchBar = document.querySelector(".search-bar");
 export const focusThemeDiv = document.querySelector(".bar-focus");
+console.log(searchBar, focusThemeDiv);
 
 //ADDING FOCUS THEME WHEN CLICKING ON SearchBar AND REMOVING WHEN CLICKING ANYWHERE OUTSIDE IT
 document.addEventListener("click", (event) => {
   if (event.target.closest(".search-bar")) {
-    focusThemeDiv.classList.add("search-bar-focus-theme");
+    focusThemeDiv.classList.add("active");
   } else {
-    focusThemeDiv.classList.remove("search-bar-focus-theme");
+    focusThemeDiv.classList.remove("active");
   }
 
   if(event.target.closest(".search-button")){
@@ -36,7 +37,7 @@ if(e.key==="Enter"){
   e.preventDefault();
  
   searchProduct({searchBar,productGrid,renderUi});
-  focusThemeDiv.classList.remove("search-bar-focus-theme"); //REMOVES SEARCHBAR FOCUS THEME WHEN I PRESS ENTER AFTER TYPING PRODUCT NAME
+  focusThemeDiv.classList.remove("active"); //REMOVES SEARCHBAR FOCUS THEME WHEN I PRESS ENTER AFTER TYPING PRODUCT NAME
     
 }
 });
@@ -44,7 +45,7 @@ if(e.key==="Enter"){
 document.addEventListener("scroll", () => {
   
   //REMOVING FOCUS THEME WHEN SCROLLING PAGE
-  focusThemeDiv.classList.remove("search-bar-focus-theme");
+  focusThemeDiv.classList.remove("active");
 
   //REMOVES IMAGE FROM FULL SCREEN VIEW WHEN I SCROLL
   const overlay = document.querySelector(".image-background");
