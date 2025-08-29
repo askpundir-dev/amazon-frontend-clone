@@ -1,37 +1,3 @@
-
-const orderedProducts=[
-  {
- orderPlacedDate:'29 August',
- orderTotalPrice:'$2000',
-  productsOrdered:[
-    {
-      productId:'1234',
-      productQuantity:'10',
-      deliveryOptionId:'3',
-    }
-  ]
-  }
-,
-   {
- orderPlacedDate:'29 August',
- orderTotalPrice:'$2000',
-  productsOrdered:[
-    {
-      productId:'1234',
-      productQuantity:'10',
-      deliveryOptionId:'3',
-    }
-  ]
-  }
-];
-
-console.log(orderedProducts);
-
-
-
-
-
-
 // import { orderedProducts } from "../../data/orderedProducts.js";
 import { orderedProducts } from "../checkout/paymentSummary.js";
 import { getDeliveryDate } from "../utils/deliveryTime.js";
@@ -78,15 +44,26 @@ function renderOrderedProducts(){
           </div>
 
           <div class="order-details-grid">
+          ${orderDetailsHTML(date)}
            </div>
 
         </div>` 
     
 ordersGridHTML+=html;
-console.log(ordersGridHTML);
-const orderDetailsGrid=ordersGrid.querySelector('.order-details-grid');
+  });
+  ordersGrid.innerHTML=ordersGridHTML;
+  console.log(ordersGrid.innerHTML);
+}
 
-console.log(orderDetailsGrid);
+
+const cartQuantityIcon=document.querySelector('.cart-quantity');
+function cartQuantity(){
+  cartQuantityIcon.innerHTML=getCartTotal('quantity');
+}
+
+
+
+function orderDetailsHTML(date){
 let orderDetailsGridHTML=''
 date.ordered.forEach(order=>{
   console.log(order);
@@ -127,17 +104,8 @@ orderDetailsGridHTML+=`
             </div>
           `;
 });
-orderDetailsGrid.innerHTML=orderDetailsGridHTML;
-console.log(orderDetailsGrid.innerHTML);
-
-// console.log(ordersGridHTML+orderDetailsGrid.innerHTML);
-  });
-  ordersGrid.innerHTML=ordersGridHTML;
-
+return orderDetailsGridHTML;
 }
-const cartQuantityIcon=document.querySelector('.cart-quantity');
-function cartQuantity(){
-  cartQuantityIcon.innerHTML=getCartTotal('quantity');
-}
+
 renderOrderedProducts();
 cartQuantity();

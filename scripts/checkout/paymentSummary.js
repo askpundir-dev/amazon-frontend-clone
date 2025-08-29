@@ -1,10 +1,13 @@
-import { cart} from "../../data/cart.js";
+import { cart, saveToStorage} from "../../data/cart.js";
 import { products } from "../../data/products.js";
 import { findMatchingProductWithId } from "../utils/findMatchingProducts.js";
 import { formatCurrency } from "../utils/money.js";
 import { findMatchingOption } from "../../data/deliveryOptions.js";
-
+// import {orderedProducts} from '../../data/orderedProducts.js';
+import {renderCartProducts,cartIsEmpty} from './renderCartProducts.js';
+import { getDeliveryDate } from "../utils/deliveryTime.js";
 const paymentSummaryElement=document.querySelector('.js-payment-summary');
+
 export function renderPaymentSummery(){
   console.log("I am Rendered");
   let productPriceCents=0;
@@ -25,8 +28,8 @@ const totalBeforeTaxCents=productPriceCents+shippingPriceCents;
 const tax=totalBeforeTaxCents*(10/100);
 
 const totalCents=totalBeforeTaxCents+tax;
-
-  const html=`<div class="payment-summary-title">
+ paymentSummaryElement.innerHTML=
+          `<div class="payment-summary-title">
             Order Summary
           </div>
 
@@ -57,7 +60,41 @@ const totalCents=totalBeforeTaxCents+tax;
 
           <button class="place-order-button button-primary">
             Place your order
-          </button>`;
-    paymentSummaryElement.innerHTML=html;   
+          </button>`
+          ;
 
+  const placeOrderBtn=paymentSummaryElement.querySelector('.place-order-button');
+  console.log(placeOrderBtn);
+
+placeOrderBtn.addEventListener('click',()=>{
+console.log('order-placed');
+placeYourOrder(totalCents);
+window.location.href='orders.html';
+});
 }
+
+export let orderedProducts=JSON.parse(localStorage.getItem('orderedProducts'))||[];
+function placeYourOrder(totalCents){
+  const dateToady=getDeliveryDate();
+  console.log(dateToady);
+  let orderedProds=[];
+ cart.forEach(cartItem=>{
+console.log(cartItem);
+orderedProds.push(cartItem);
+
+});
+
+orderedProducts=[
+  {
+    orderPlacedDate:dateToady,
+    orderTotalPrice:totalCents,
+    ordered:orderedProds,
+  }
+]
+cart.splice(0,cart.length);
+saveToStorage();
+cartIsEmpty();
+renderCartProducts();
+  console.log(orderedProducts);
+}
+

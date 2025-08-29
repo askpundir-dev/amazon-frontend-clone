@@ -125,9 +125,15 @@ export function renderCartProducts(orderSummary) {
   }
 }
 
-function cartIsEmpty() {
+
+export function cartIsEmpty() {
+  const header=document.querySelector('.checkout-header');
   const main = document.querySelector(".main");
-  console.log(main);
+  const bgOverlay=document.querySelector('.cart-background-color');
+  bgOverlay.classList.remove('js-hidden');
+ header.style.backgroundColor='rgb(32 147 136)';
+  header.querySelector('.js-total-cart-items').style.color='#FFEB3B';
+  header.querySelector('.checkout-header-right-section').style.filter='brightness(0.2)';
   if (!main) return;
 
   if (!cart.length) {

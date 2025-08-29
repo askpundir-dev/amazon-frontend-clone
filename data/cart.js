@@ -1,4 +1,6 @@
 import { findMatchingProductWithId } from "../scripts/utils/findMatchingProducts.js";
+// import { orderedProducts } from "./orderedProducts.js";
+import { orderedProducts } from "../scripts/checkout/paymentSummary.js";
 // import { products } from "./products.js";
 
 export let cart =JSON.parse(localStorage.getItem("cart"))||[];
@@ -29,7 +31,14 @@ export function addToCart(productId,quantityToAdd=1) {
 }
 
 export function saveToStorage() {
-  localStorage.setItem("cart", JSON.stringify(cart));
+  if(cart){
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }
+
+if(orderedProducts){
+  localStorage.setItem('orderedProducts',JSON.stringify(orderedProducts));
+}
+
 }
 
 export function deleteFromCart(productId){
