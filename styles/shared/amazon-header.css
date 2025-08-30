@@ -159,13 +159,14 @@ background-color:orange ;
   position: fixed;
   top: 60px;
   left: 0;
-  transition: background-color 0.4s ease-in-out;
- display: none;
+  transition: all 0.5s ease-in-out;
+ visibility: hidden;
 }
 
 
 .bar-focus.search-bar-focus-theme.active {
   background-color: #000000d1; 
-  display: block;
+  visibility: visible;
+  
 }
 
