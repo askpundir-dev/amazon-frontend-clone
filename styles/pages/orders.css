@@ -218,3 +218,52 @@
     padding: 12px;
   }
 }
+
+
+/* no orders yet */
+
+.no-orders-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* border: 2px solid; */
+  padding: 60px 20px;
+  text-align: center;
+  min-height: 60vh; /* keeps it vertically centered on taller screens */
+}
+
+.no-orders-container h2 {
+  font-size: 1.8rem;
+  margin-bottom: 14px;
+  color: #333;
+  font-weight: 600;
+}
+
+.no-orders-container p {
+  margin-bottom: 25px;
+  color: #555;
+  font-size: 1rem;
+}
+
+.no-orders-btn {
+  background-color: #ffd814;
+  border: 1px solid #fcd200;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  color: #a20e0e;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.no-orders-btn:hover {
+  background-color: #f7ca00;
+  transform: scale(1.04) translateY(-4px);
+  
+}
+
+.no-orders-btn:active {
+  background-color: #f0b800;
+  transform:  scale(0.97);
+}

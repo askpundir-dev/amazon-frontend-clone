@@ -244,3 +244,28 @@ height: 60vh;
 .no-results-btn:hover { 
   background: #005bb5; 
 }
+
+
+/* FAKE PAGE REFRESH EFFECT */
+.refresh-effect {
+  animation: refreshFade 0.6s ease;
+  position:relative;
+  z-index: -2;
+  will-change: transform, opacity;  /* hint browser for smoother animation */
+}
+
+
+@keyframes refreshFade {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  40% {
+    opacity: 0.3;
+    transform: translateY(5px); 
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

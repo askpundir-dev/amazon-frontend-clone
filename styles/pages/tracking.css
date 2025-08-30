@@ -43,9 +43,6 @@
   margin-bottom: 15px;
 }
 
-.current-status {
-  color: rgb(6, 125, 98);
-}
 
 @media (max-width: 575px) {
   .progress-labels-container {
@@ -77,5 +74,11 @@
   height: 100%;
   background-color: green;
   border-radius: 50px;
-  width: 50%;
+  width: 5%;
+  transition: width 0.5s ease;
+}
+
+.current-status {
+  color: rgb(6, 125, 98);
+  
 }

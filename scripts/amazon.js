@@ -27,6 +27,7 @@ document.addEventListener("click", (event) => {
 //  console.log(searchBtn);
 //  console.log("hello");
  searchProduct({searchBar,productGrid,renderUi});
+ searchBar.blur();
   }
 });
 
@@ -38,7 +39,7 @@ if(e.key==="Enter"){
  
   searchProduct({searchBar,productGrid,renderUi});
   focusThemeDiv.classList.remove("active"); //REMOVES SEARCHBAR FOCUS THEME WHEN I PRESS ENTER AFTER TYPING PRODUCT NAME
-    
+    searchBar.blur();
 }
 });
 
