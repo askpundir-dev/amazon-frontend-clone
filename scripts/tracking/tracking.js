@@ -47,7 +47,9 @@ function renderTrackedProduct() {
   // Compute current status
   const currentStatus = getCurrentStatus(product);
   const statuses = ["Preparing", "Shipped", "Delivered"];
-  const progressPercent = (statuses.indexOf(currentStatus) / (statuses.length - 1)) * 100;
+  
+  const rawPercent=(statuses.indexOf(currentStatus)/(statuses.length-1))*95;
+  const progressPercent = 5+rawPercent;
 
   const orderTrackingHTML = `
     <a class="back-to-orders-link link-primary" href="orders.html">
@@ -91,7 +93,7 @@ function getCurrentStatus(product) {
 
   if (now >= delivered) return "Delivered";
   if (now >= shipped) return "Shipped";
-  if (now >= preparing) return ""; // ✅ added preparing
+  if (now >= preparing) return "Preparing"; // ✅ added preparing
 }
 const header=document.querySelector('.amazon-header');
 header.querySelector('.cart-quantity').innerHTML=`${getCartTotal('quantity')}`
