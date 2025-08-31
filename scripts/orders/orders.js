@@ -67,7 +67,7 @@ function renderOrderedProducts() {
 
 const cartQuantityIcon=document.querySelector('.cart-quantity');
 function showCartQuantity(){
-  cartQuantityIcon.innerHTML=getCartTotal('quantity');
+  cartQuantityIcon.textContent=getCartTotal('quantity');
 }
 
 

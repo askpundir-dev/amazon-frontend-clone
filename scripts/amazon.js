@@ -120,23 +120,11 @@ function openImageFullView(imageId) {
   main.after(overlay);
 }
 
-
-function showTotalCartQuantity() {
-  const cartQuantityDiv = document.querySelector(".js-cart-quantity");
-  // console.log(cartQuantityDiv);
-  
-  //WAY 1:
-  // let cartQuantity = 0;
-  // cart.forEach((item) => (cartQuantity += item.quantity));
-  // // console.log(cartQuantity);
-  // cartQuantityDiv.innerHTML = cartQuantity;
-  
-  //WAY 2:
-cartQuantityDiv.textContent=getCartTotal('quantity');
-
+function showCartQuantity(){
+  const cartQuantityIcon=document.querySelector('.cart-quantity');
+  cartQuantityIcon.textContent=getCartTotal('quantity');
 }
-
-showTotalCartQuantity();
+showCartQuantity()
 saveToStorage();
 
 
