@@ -5,7 +5,7 @@ export function getDeliveryDate(days = 0) {
   const formatted = today.toLocaleDateString("en-US", {
     weekday: "long",
     month: "long",
-    day: "2-digit"
+    day: "2-digit",
   });
 
   return `${formatted}`;

@@ -1,31 +1,36 @@
-import { cart, saveToStorage } from "../../data/cart.js";
-import { products } from "../../data/products.js";
-import { findMatchingProductWithId } from "../utils/findMatchingProducts.js";
-import { formatCurrency } from "../utils/money.js";
-import { findMatchingOption } from "../../data/deliveryOptions.js";
-// import {orderedProducts} from '../../data/orderedProducts.js';
-import { renderCartProducts, cartIsEmpty } from "./renderCartProducts.js";
-import { getDeliveryDate } from "../utils/deliveryTime.js";
+import cart from "../../OOP-data-scripts/cart-oop.js";
+import products from "../../OOP-data-scripts/products-oop.js";
+import { findMatchingProductWithId } from "../../../scripts/utils/findMatchingProducts.js";
+import orderedProducts from "../../OOP-data-scripts/orderedProducts-oop.js";
+
+import delivery from "../../OOP-data-scripts/deliveryOptions-oop.js";
+import { formatCurrency } from "../../../scripts/utils/money.js";
+
 const paymentSummaryElement = document.querySelector(".js-payment-summary");
 
 export function renderPaymentSummery() {
+  if (!cart.cartItems.length) return;
+
   console.log("I am Rendered");
   let productPriceCents = 0;
   let shippingPriceCents = 0;
   let totalItems = 0;
-  cart.forEach((cartItem) => {
-    const matchingProduct = findMatchingProductWithId(products, cartItem.id);
+  let matchingProduct;
+  cart.cartItems.forEach((cartItem) => {
+    matchingProduct = findMatchingProductWithId(products, cartItem.id);
     totalItems += cartItem.quantity;
 
     productPriceCents += cartItem.quantity * matchingProduct.priceCents;
 
-    const deliveryOption = findMatchingOption(cartItem.deliveryOptionId);
+    const deliveryOption = delivery.findMatchingOption(
+      cartItem.deliveryOptionId
+    );
     shippingPriceCents += deliveryOption.priceCents;
   });
   const totalBeforeTaxCents = productPriceCents + shippingPriceCents;
 
   const tax = totalBeforeTaxCents * (10 / 100);
-
+  console.log(matchingProduct);
   const totalCents = totalBeforeTaxCents + tax;
   paymentSummaryElement.innerHTML = `<div class="payment-summary-title">
 Order Summary
@@ -38,7 +43,8 @@ Order Summary
 
 <div class="payment-summary-row">
 <div>Shipping &amp; handling:</div>
-<div class="payment-summary-money">$${formatCurrency(shippingPriceCents)}</div>
+<div class="payment-summary-money">
+$${formatCurrency(shippingPriceCents)}</div>
 </div>
 
 <div class="payment-summary-row subtotal-row">
@@ -65,36 +71,30 @@ Place your order
   );
   placeOrderBtn.onclick = () => {
     console.log("order-placed");
-    placeYourOrder(totalCents);
+    orderedProducts.placeYourOrder(totalCents);
+    console.log(orderedProducts);
     setTimeout(() => (window.location.href = "orders.html"), 100);
   };
 }
 
-export let orderedProducts =
-  JSON.parse(localStorage.getItem("orderedProducts")) || [];
-function placeYourOrder(totalCents) {
-  const dateToady = getDeliveryDate(); //if no argument is passed gets the today's date
-  console.log(dateToady);
-  let orderedProds = [...cart];
-  const orderId = crypto.randomUUID();
+// let orderedProducts=JSON.parse(localStorage.getItem('orderedProducts'))||[];
+// function placeYourOrder(totalCents){
+//   const dateToady=getDeliveryDate();//if no argument is passed gets the today's date
+//   console.log(dateToady);
+//   let orderedProds=[...cart.cartItems];
+//   const orderId = crypto.randomUUID();
 
-  //  cart.forEach(cartItem=>{
-  // console.log(cartItem);
-  // orderedProds.push(cartItem);
+// orderedProducts.push({
+//   orderId,
+//   orderPlacedDate: dateToady,
+//   orderTimestamp: Date.now(),
+//   orderTotalPrice: totalCents,
+//   ordered: orderedProds,
+// });
+// cart.cartItems.splice(0,cart.cartItems.length);
+// cart.saveToStorage();
+// cartIsEmpty();
+// renderCartProducts();
 
-  // });
-
-  orderedProducts.push({
-    orderId,
-    orderPlacedDate: dateToady,
-    orderTimestamp: Date.now(),
-    orderTotalPrice: totalCents,
-    ordered: orderedProds,
-  });
-  cart.splice(0, cart.length);
-  saveToStorage();
-  cartIsEmpty();
-  renderCartProducts();
-
-  console.log(orderedProducts);
-}
+// console.log(orderedProducts);
+// }

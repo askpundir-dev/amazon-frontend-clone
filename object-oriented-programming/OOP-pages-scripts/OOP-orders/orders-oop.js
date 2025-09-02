@@ -1,12 +1,13 @@
-// import { orderedProducts } from "../../data/orderedProducts.js";
-import { orderedProducts } from "../checkout/paymentSummary.js";
-import { getDeliveryDate } from "../utils/deliveryTime.js";
-import { formatCurrency } from "../utils/money.js";
-import { getCartTotal, addToCart } from "../../data/cart.js";
-import { findMatchingProduct } from "../utils/findMatchingProducts.js";
-import { products } from "../../data/products.js";
-import { findMatchingOption } from "../../data/deliveryOptions.js";
+import orderedProducts from "../../OOP-data-scripts/orderedProducts-oop.js";
+import { getDeliveryDate } from "../../../scripts/utils/deliveryTime.js";
+import { formatCurrency } from "../../../scripts/utils/money.js";
+import cart from "../../OOP-data-scripts/cart-oop.js";
+import { findMatchingProduct } from "../../../scripts/utils/findMatchingProducts.js";
+import products from "../../OOP-data-scripts/products-oop.js";
+import { findMatchingOption } from "../../../data/deliveryOptions.js";
+
 console.log(getDeliveryDate());
+console.log(orderedProducts);
 
 // console.log(orderedProducts);
 const main = document.querySelector(".main");
@@ -17,11 +18,11 @@ const ordersGrid = main.querySelector(".orders-grid");
 
 function renderOrderedProducts() {
   // sort newest first by orderPlacedDate
-  const sortedOrders = [...orderedProducts].sort(
+  const sortedProducts = [...orderedProducts.products].sort(
     (a, b) => b.orderTimestamp - a.orderTimestamp
   );
 
-  if (sortedOrders.length === 0) {
+  if (sortedProducts.length === 0) {
     main.innerHTML = `
 <div class="no-orders-container">
 <h2>You haven’t placed any orders yet</h2>
@@ -33,29 +34,29 @@ function renderOrderedProducts() {
   }
 
   let ordersGridHTML = "";
-  sortedOrders.forEach((order) => {
+  sortedProducts.forEach((product) => {
     const html = `
-<div class="order-container" data-order-id='${order.orderId}'>
+<div class="order-container" data-order-id='${product.orderId}'>
 <div class="order-header">
 <div class="order-header-left-section">
 <div class="order-date">
 <div class="order-header-label">Order Placed:</div>
-<div>${order.orderPlacedDate}</div>
+<div>${product.orderPlacedDate}</div>
 </div>
 <div class="order-total">
 <div class="order-header-label">Total:</div>
-<div>$${formatCurrency(order.orderTotalPrice)}</div>
+<div>$${formatCurrency(product.orderTotalPrice)}</div>
 </div>
 </div>
 
 <div class="order-header-right-section">
 <div class="order-header-label">Order ID:</div>
-<div>${order.orderId}</div>
+<div>${product.orderId}</div>
 </div>
 </div>
 
 <div class="order-details-grid">
-${orderDetailsHTML(order)}
+${orderDetailsHTML(product)}
 </div>
 </div>`;
 
@@ -67,15 +68,15 @@ ${orderDetailsHTML(order)}
 
 const cartQuantityIcon = document.querySelector(".cart-quantity");
 function showCartQuantity() {
-  cartQuantityIcon.textContent = getCartTotal("quantity");
+  cartQuantityIcon.textContent = cart.getCartTotal("quantity");
 }
 
-function orderDetailsHTML(order) {
+function orderDetailsHTML(product) {
   let orderDetailsGridHTML = "";
-  order.ordered.forEach((product) => {
-    console.log(product);
-    const matchingProduct = findMatchingProduct(products, product);
-    const matchedOption = findMatchingOption(product.deliveryOptionId);
+  product.ordered.forEach((item) => {
+    console.log(item);
+    const matchingProduct = findMatchingProduct(products, item);
+    const matchedOption = findMatchingOption(item.deliveryOptionId);
     const arrivalDate = getDeliveryDate(matchedOption.deliveryDays);
     // console.log(arrivalDate);
 
@@ -94,7 +95,7 @@ ${matchingProduct.name}
 Arriving on: ${arrivalDate}
 </div>
 <div class="product-quantity">
-Quantity: ${product.quantity}
+Quantity: ${item.quantity}
 </div>
 <button class="buy-again-button button-primary" data-buy-again-id='${matchingProduct.id}'>
 <img class="buy-again-icon" src="images/icons/buy-again.png">
@@ -131,7 +132,7 @@ ordersGrid.addEventListener("click", (e) => {
     const productId = buyItAgainBtn.dataset.buyAgainId;
     console.log(buyItAgainBtn);
     console.log(productId);
-    addToCart(productId);
+    cart.addToCart(productId);
     showCartQuantity();
   }
   if (trackPackageBtn) {
@@ -142,38 +143,21 @@ ordersGrid.addEventListener("click", (e) => {
   }
 });
 
-// function trackPackaging(packageId) {
-//   // localStorage.removeItem('trackedPackage');
-//   let trackPackage = [];
-
-//   orderedProducts.forEach(order => {
-//     order.ordered.forEach(product => {
-//       if (product.id === packageId) {
-//         trackPackage.push(product);
-//       }
-//     });
-//   });
-
-//   // overwrites old data with new one
-//   console.log(trackPackage);
-//   localStorage.setItem('trackedPackage', JSON.stringify(trackPackage));
-// }
-
 function trackPackaging(packageId, orderId) {
   let trackPackage = null; // store single product
 
-  for (const order of orderedProducts) {
-    if (order.orderId !== orderId) continue;
-    for (const product of order.ordered) {
-      if (product.id === packageId) {
+  for (const products of orderedProducts.products) {
+    if (products.orderId !== orderId) continue;
+    for (const item of products.ordered) {
+      if (item.id === packageId) {
         const placedTime = Date.now();
-        const deliveryDays = product.deliveryDays || 5;
+        const deliveryDays = item.deliveryDays || 5;
         const halfDelivery =
           placedTime + (deliveryDays * 24 * 60 * 60 * 1000) / 2;
         const deliveryTime = placedTime + deliveryDays * 24 * 60 * 60 * 1000;
 
         trackPackage = {
-          ...product,
+          ...item,
           statusTimestamps: {
             preparing: placedTime,
             shipped: halfDelivery,

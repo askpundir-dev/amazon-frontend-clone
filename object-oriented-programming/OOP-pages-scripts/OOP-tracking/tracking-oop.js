@@ -1,25 +1,8 @@
-import { getCartTotal } from "../../data/cart.js";
-import { findMatchingOption } from "../../data/deliveryOptions.js";
-import { products } from "../../data/products.js";
-import { getDeliveryDate } from "../utils/deliveryTime.js";
-import { findMatchingProduct } from "../utils/findMatchingProducts.js";
-
-// The DOMContentLoaded wrapper is only necessary if our script is in the <head> or runs before the HTML elements it’s trying to access exist.
-
-// document.addEventListener("DOMContentLoaded", ...) → waits until the full HTML is loaded, so that querySelectors don’t return null.
-
-// If our script tag is placed at the end of <body>, after all the DOM elements, then everything exists already and we don’t need DOMContentLoaded
-
-// document.addEventListener("DOMContentLoaded", () => {
-//   const packageDetails = getTrackedPackage();
-//   if (!packageDetails) return;
-
-//   // render product details
-//   packageDetails.forEach(product => {
-//     console.log("Product:", product);
-//     // add DOM rendering here
-//   });
-// });
+import cart from "../../OOP-data-scripts/cart-oop.js";
+import { findMatchingOption } from "../../../data/deliveryOptions.js";
+import products from "../../OOP-data-scripts/products-oop.js";
+import { getDeliveryDate } from "../../../scripts/utils/deliveryTime.js";
+import { findMatchingProduct } from "../../../scripts/utils/findMatchingProducts.js";
 
 const orderTrackingElement = document.querySelector(".order-tracking");
 
@@ -95,7 +78,7 @@ function getCurrentStatus(product) {
   if (now >= preparing) return "Preparing"; // ✅ added preparing
 }
 const header = document.querySelector(".amazon-header");
-header.querySelector(".cart-quantity").innerHTML = `${getCartTotal(
+header.querySelector(".cart-quantity").innerHTML = `${cart.getCartTotal(
   "quantity"
 )}`;
 renderTrackedProduct();

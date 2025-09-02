@@ -1,38 +1,23 @@
-import { cart } from "../../data/cart.js";
-import { findMatchingProduct } from "../utils/findMatchingProducts.js";
-import { products } from "../../data/products.js";
+import cart from "../../OOP-data-scripts/cart-oop.js";
+import { findMatchingProduct } from "../../../scripts/utils/findMatchingProducts.js";
+import products from "../../OOP-data-scripts/products-oop.js";
 import {
   findMatchingOption,
   deliveryOptions,
-} from "../../data/deliveryOptions.js";
-import { getDeliveryDate } from "../utils/deliveryTime.js";
-import { formatCurrency } from "../utils/money.js";
+} from "../../../data/deliveryOptions.js";
+import { getDeliveryDate } from "../../../scripts/utils/deliveryTime.js";
+
+import { formatCurrency } from "../../../scripts/utils/money.js";
 
 export function renderCartProducts(orderSummary) {
-  if (cart.length) {
+  if (cart.cartItems.length) {
     let summaryHTML = "";
-    const sortedProducts = cart.sort(
+    const sortedProducts = cart.cartItems.sort(
       (a, b) => b.orderTimestamp - a.orderTimestamp
     );
     sortedProducts.forEach((cartItem) => {
-      // console.log(cartItem.id);
-      //USING ARRAY.FIND() TO COMPARE THE cartItem.id with product.id
-      //  let matchingProduct=products.find(product=>product.id===cartItem.id);
-
-      //CREATED A FUNCTION FOR FINDING MATCHING ITEMS BECAUSE THIS CODE IS REPEATED MULTIPLE TIMES
       let matchingProduct = findMatchingProduct(products, cartItem);
 
-      //OR USING forEach() WE CAN DO THIS WAY
-      // let matchingProduct;
-      // products.forEach(product=>{
-      //   if(product.id===cartItem.id){
-      //     console.log(product);
-      //     console.log(product.id);
-      //     matchingProduct= product;
-      //   }
-      //   });
-
-      // console.log(matchingProduct);
       const deliveryOptionId = cartItem.deliveryOptionId;
       const deliveryOption = findMatchingOption(deliveryOptionId);
       const html = `<div class="cart-item-container js-remove-from-cart-${
@@ -51,7 +36,7 @@ src="${matchingProduct.image}">
 ${matchingProduct.name}
 </div>
 <div class="product-price">
-$${formatCurrency(matchingProduct.priceCents)}
+${matchingProduct.getPriceCents()}
 </div>
 <div class="product-quantity">
 <span>
@@ -98,9 +83,7 @@ ${deliveryOptionsHTML(matchingProduct, cartItem)}
             ? "FREE Shipping"
             : `$${formatCurrency(option.priceCents)} - Shipping`;
         const isChecked = option.id === cartItem.deliveryOptionId;
-        // console.log(priceString);
-        // const someHtml=`${option.priceCents===0?'Free Shipping':'$'+formatCurrency(option.priceCents)+' - Shipping'}`
-        // console.log(someHtml);
+
         html += `<div class="delivery-option">
 <input type="radio" ${
           isChecked ? "checked" : ""

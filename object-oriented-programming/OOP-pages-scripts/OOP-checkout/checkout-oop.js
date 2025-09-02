@@ -1,16 +1,19 @@
+import cart from "../../OOP-data-scripts/cart-oop.js";
+
+import { getDeliveryDate } from "../../../scripts/utils/deliveryTime.js";
+
+import { deliveryOptions } from "../../../data/deliveryOptions.js";
 import {
-  cart,
-  deleteFromCart,
-  getCartTotal,
-  updateDeliveryOptionId,
-  saveToStorage,
-} from "../../data/cart.js";
-import { getDeliveryDate } from "../utils/deliveryTime.js";
-import { deliveryOptions } from "../../data/deliveryOptions.js";
-import { getDOM, selectors, query } from "../utils/domSelectors.js";
-import { findMatchingProductWithId } from "../utils/findMatchingProducts.js";
-import { renderPaymentSummery } from "./paymentSummary.js";
-import { renderCartProducts } from "./renderCartProducts.js";
+  getDOM,
+  selectors,
+  query,
+} from "../../../scripts/utils/domSelectors.js";
+
+import { findMatchingProductWithId } from "../../../scripts/utils/findMatchingProducts.js";
+
+import { renderPaymentSummery } from "./paymentSummary-oop.js";
+import { updateDeliveryOptionId } from "../../../data/cart.js";
+import { renderCartProducts } from "./renderCartProducts-oop.js";
 //THIS IS HOW WE LOAD EXTERNAL LIBRARIES IN OUR SCRIPT USING MODULES
 // import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
 
@@ -22,21 +25,14 @@ import { renderCartProducts } from "./renderCartProducts.js";
 const orderSummary = document.querySelector(".js-order-summary");
 console.log(orderSummary);
 
-// USNING FUNCTION getDOM FOR QUERING THE DOM
-// calling this function when code runs for the first time--
-//--because these selectors are not unique and they wont change in our program further
-//--MORE SIMPLE UNDERSTANDING IS THEY ARE STATIC ELEMENTS EXAMPLE:HEADER,MAIN,HEADER-LOGO,SEARCHBAR,ETC
-
 const domElements = getDOM(selectors);
 function showTotalCheckoutQuantity() {
-  const itemsQuantity = getCartTotal("quantity");
-  // console.log(total);
-  //SHOWS TOTAL ITEMS AT THE TOP OF THE SCREEN
+  const itemsQuantity = cart.getCartTotal("quantity");
+
   domElements.checkOut.innerHTML = `${itemsQuantity} items`;
   console.log(domElements);
-  //SHOWS TOTAL ITEMS IN ORDER SUMMARY
-  // document.querySelector('.order-sumry-total-items').innerHTML=`Items (${itemsQuantity}):`
-  saveToStorage();
+
+  cart.saveToStorage();
 }
 
 renderCartProducts(orderSummary);
@@ -74,7 +70,7 @@ function saveUpdatedQuantity(productId, updateBtn, saveBtn) {
   const els = query(productId);
   if (!els) return;
 
-  const matchingProduct = findMatchingProductWithId(cart, productId);
+  const matchingProduct = findMatchingProductWithId(cart.cartItems, productId);
   const inputValue = parseInt(els.input.value.trim(), 10);
 
   if (inputValue < 0 || Number.isNaN(inputValue)) {
@@ -92,7 +88,7 @@ function saveUpdatedQuantity(productId, updateBtn, saveBtn) {
   matchingProduct.quantity = inputValue;
 
   if (matchingProduct.quantity === 0) {
-    deleteFromCart(productId);
+    cart.deleteFromCart(productId);
     removeProductContainer(productId);
     showTotalCheckoutQuantity();
     renderPaymentSummery();
@@ -128,36 +124,24 @@ orderSummary.addEventListener("click", (e) => {
   const updateBtn = container.querySelector(".js-update-btn");
   const saveBtn = container.querySelector(".js-save");
   const deleteBtn = e.target.closest(".delete-quantity-link");
-  //IF ELEMENT SELECTED THROUGH QUERYSELECTOR WE CAN TARGET IT LIKE THIS
-  //BUT IT WONT TARGET ANY CHILD OF UPDATE BUTTON
 
-  //--UPDATE--
   if (e.target === updateBtn) {
     console.log("Update clicked:", id, updateBtn);
     modifyUpdateBtn({ id, updateBtn, container, saveBtn });
   }
-  //TARGETING THIS WAY GIVES ACCESS TO CLICK ANY CHILD INSIDE saveBtn
 
-  // --SAVE--
   if (e.target.closest(`.js-save`)) {
     console.log("Save clicked:", id, saveBtn);
     saveUpdatedQuantity(id, updateBtn, saveBtn);
-    if (!cart.length) renderCartProducts();
-  }
-
-  //I TARGETED DELETE BUTTON USING e.target.closest()
-  //SO I CAN WRITE SIMPLY deleteBtn IN CONDITION TO
-  //CHECK IF IT WAS CLICKED
-
-  //  --DELETE--
-  else if (deleteBtn) {
+    if (!cart.cartItems.length) renderCartProducts();
+  } else if (deleteBtn) {
     console.log("Delete clicked:", id);
-    deleteFromCart(id);
+    cart.deleteFromCart(id);
     removeProductContainer(id);
     showTotalCheckoutQuantity();
     renderPaymentSummery();
     // console.log(cart.length);
-    if (!cart.length) renderCartProducts();
+    if (!cart.cartItems.length) renderCartProducts();
   }
 
   if (e.target.closest(`input[name='delivery-option-${id}'`)) {
@@ -165,7 +149,7 @@ orderSummary.addEventListener("click", (e) => {
     const matchedOptionObj = deliveryOptions.find(
       (option) => option.id === deliveryOptionId
     );
-    updateDeliveryOptionId(id, deliveryOptionId);
+    cart.updateDeliveryOptionId(id, deliveryOptionId);
     showDeliveryDateOfEachOption(matchedOptionObj, id);
     renderPaymentSummery();
   }

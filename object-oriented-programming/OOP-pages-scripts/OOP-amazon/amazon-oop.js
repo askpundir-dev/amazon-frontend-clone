@@ -1,7 +1,6 @@
-import { products } from "../data/products.js";
-import { addToCart, saveToStorage, getCartTotal } from "../data/cart.js";
-import { formatCurrency } from "./utils/money.js";
-import { searchProduct } from "../data/searchedProducts.js";
+import products from "../../OOP-data-scripts/products-oop.js";
+import cart from "../../OOP-data-scripts/cart-oop.js";
+import { search } from "../../OOP-data-scripts/searchedProducts-oop.js";
 const productGrid = document.querySelector(".products-grid");
 // console.log(productGrid);
 
@@ -25,7 +24,7 @@ document.addEventListener("click", (event) => {
     //  const searchBtn=event.target;
     //  console.log(searchBtn);
     //  console.log("hello");
-    searchProduct({ searchBar, productGrid, renderUi });
+    search.searchProduct({ searchBar, productGrid, renderUi });
     searchBar.blur();
   }
 });
@@ -36,7 +35,7 @@ searchBar.addEventListener("keydown", (e) => {
     // console.log(e);
     e.preventDefault();
 
-    searchProduct({ searchBar, productGrid, renderUi });
+    search.searchProduct({ searchBar, productGrid, renderUi });
     focusThemeDiv.classList.remove("active"); //REMOVES SEARCHBAR FOCUS THEME WHEN I PRESS ENTER AFTER TYPING PRODUCT NAME
     searchBar.blur();
   }
@@ -81,7 +80,7 @@ productGrid.addEventListener("click", (e) => {
     const productSelectorEle = productGrid.querySelector(
       `.js-product-selector-${productId}`
     );
-    const isAdded = addToCart(productId, productSelectorEle.value);
+    const isAdded = cart.addToCart(productId, productSelectorEle.value);
     console.log(isAdded);
     if (isAdded) productSelectorEle.value = 1;
     showAddToCartMessage(productId);
@@ -116,10 +115,10 @@ function openImageFullView(imageId) {
 
 function showCartQuantity() {
   const cartQuantityIcon = document.querySelector(".cart-quantity");
-  cartQuantityIcon.textContent = getCartTotal("quantity");
+  cartQuantityIcon.textContent = cart.getCartTotal("quantity");
 }
 showCartQuantity();
-saveToStorage();
+cart.saveToStorage();
 
 function renderUi(array) {
   // if(array.length){}
@@ -138,16 +137,14 @@ ${product.name}
 
 <div class="product-rating-container">
 <img class="product-rating-stars"
-src="images/ratings/rating-${product.rating.stars * 10}.png" alt="${
-      product.rating.stars
-    }">
+src='${product.getStarsUrl()}' alt="${product.rating.stars}">
 <div class="product-rating-count link-primary">
 ${product.rating.count}
 </div>
 </div>
 
 <div class="product-price">
-$${formatCurrency(product.priceCents)}
+${product.getPriceCents()}
 </div>
 
 <div class="product-quantity-container">

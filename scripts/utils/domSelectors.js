@@ -1,11 +1,11 @@
 export const selectors = {
-  checkOut:".js-total-cart-items",
+  checkOut: ".js-total-cart-items",
 };
-// PARAMETER scope=document  DOCUMENT IS DEFAULT VALUE IF WE DONT PASS ANY ARGUMENT IT WILL RUN ON FULL DOCUMNET LIKE- 
+// PARAMETER scope=document  DOCUMENT IS DEFAULT VALUE IF WE DONT PASS ANY ARGUMENT IT WILL RUN ON FULL DOCUMNET LIKE-
 //--document.queryselectorAll() but when WE PROVIDE IT ARGUMENT LIKE IN SCOPE WE PROVIDE--
 //--const main=document.querySelector(".main");--
 //--getDom(selectors,main)-- now IT WILL RUN DIRECTLY FROM MAIN LIKE main.querySelectorAll()
-export function getDOM(selectors,scope = document) {  
+export function getDOM(selectors, scope = document) {
   return Object.fromEntries(
     Object.entries(selectors).map(([key, selector]) => {
       const element = scope.querySelectorAll(selector);
@@ -19,8 +19,6 @@ export function getDOM(selectors,scope = document) {
     })
   );
 }
-
-
 
 //THIS FUNCTION IS FOR QUERING DOM, USING THIS BECAUSE KEEPING QUERIES TOGETHER OUTSIDE OF---
 //---FUNCTION IN WHICH THEY ARE USED, IS A BETTER APPROACH AND MAKES A FUNCTION MORE OPTIMIZED USING OBJECTS
@@ -36,6 +34,6 @@ export function query(productId) {
     container,
     quantityLabel: container.querySelector(`.js-prod-quantity`),
     input: container.querySelector(`.js-quantity-input`),
-    saveBtn: container.querySelector('.js-save')
-    };
+    saveBtn: container.querySelector(".js-save"),
+  };
 }
