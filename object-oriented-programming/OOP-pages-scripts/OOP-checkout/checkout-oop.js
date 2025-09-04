@@ -1,4 +1,4 @@
-import {cart, /*loadCart*/ } from "../../OOP-data-scripts/cart-oop.js";
+import {cart}  from "../../OOP-data-scripts/cart-oop.js";
 
 import { getDeliveryDate } from "../../../scripts/utils/deliveryTime.js";
 
@@ -13,71 +13,8 @@ import { findMatchingProductWithId } from "../../../scripts/utils/findMatchingPr
 
 import { renderPaymentSummery } from "./paymentSummary-oop.js";
 import { renderCartProducts } from "./renderCartProducts-oop.js";
-import { fetchProducts } from "../../OOP-data-scripts/products-oop.js";
-
-// THIS IS THE CALLBACK WAY FUNCTION INSIDE FUNCTION
-/* 
-loadProducts(()=>{
-  loadCart(()=>{
-    renderCart();
-  })
-});
-*/
 
 
-
-/*
-//USING PROMISE 
-
-new Promise((resolve)=>{
-loadProducts(()=>{
-  resolve('Done-With-Products');
-});
-
-}).then((result)=>{
-
-  console.log(result);
- return new Promise((resolve)=>{
-  loadCart(()=>{
-    resolve();
-  });
- });
-
-}).then(()=>{
-  renderCart();
-});
-
-*/
-
-/*
-//Promise.all EXAMPLE: it uses array of promises to handel the async programming  
-Promise.all([
-new Promise((resolve)=>{
-loadProducts(()=>{
-  resolve('Done-With-Products');
-});
-}),
-
-new Promise((resolve)=>{
-  loadCart(()=>{
-    resolve();
-  });
- })
-
-]).then(()=>{
-  renderCart();
-})
-*/
-
-
-
-//above code made simpler with the help of fetch also removed loadCart becuase i havent yet made backend route for it 
-fetchProducts().then(()=>{
-  renderCart();
-})
-
-
-function renderCart(){
 
 const orderSummary = document.querySelector(".js-order-summary");
 console.log(orderSummary);
@@ -212,4 +149,4 @@ orderSummary.addEventListener("click", (e) => {
   }
 });
 
-}
+

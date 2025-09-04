@@ -1,5 +1,5 @@
 import {cart} from "../../OOP-data-scripts/cart-oop.js";
-import {products} from "../../OOP-data-scripts/products-oop.js";
+import products from "../../OOP-data-scripts/products-oop.js";
 import { findMatchingProductWithId } from "../../../scripts/utils/findMatchingProducts.js";
 import orderedProducts from "../../OOP-data-scripts/orderedProducts-oop.js";
 
@@ -76,25 +76,3 @@ Place your order
     setTimeout(() => (window.location.href = "orders.html"), 100);
   };
 }
-
-// let orderedProducts=JSON.parse(localStorage.getItem('orderedProducts'))||[];
-// function placeYourOrder(totalCents){
-//   const dateToady=getDeliveryDate();//if no argument is passed gets the today's date
-//   console.log(dateToady);
-//   let orderedProds=[...cart.cartItems];
-//   const orderId = crypto.randomUUID();
-
-// orderedProducts.push({
-//   orderId,
-//   orderPlacedDate: dateToady,
-//   orderTimestamp: Date.now(),
-//   orderTotalPrice: totalCents,
-//   ordered: orderedProds,
-// });
-// cart.cartItems.splice(0,cart.cartItems.length);
-// cart.saveToStorage();
-// cartIsEmpty();
-// renderCartProducts();
-
-// console.log(orderedProducts);
-// }

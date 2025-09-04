@@ -1,6 +1,6 @@
-import{cart} from "../../OOP-data-scripts/cart-oop.js";
+import {cart} from "../../OOP-data-scripts/cart-oop.js";
 import { findMatchingProduct } from "../../../scripts/utils/findMatchingProducts.js";
-import {products} from "../../OOP-data-scripts/products-oop.js";
+import products from "../../OOP-data-scripts/products-oop.js";
 import {
   findMatchingOption,
   deliveryOptions,

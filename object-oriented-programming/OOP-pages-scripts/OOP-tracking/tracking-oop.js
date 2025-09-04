@@ -1,4 +1,4 @@
-import cart from "../../OOP-data-scripts/cart-oop.js";
+import{cart} from "../../OOP-data-scripts/cart-oop.js";
 import { findMatchingOption } from "../../../data/deliveryOptions.js";
 import products from "../../OOP-data-scripts/products-oop.js";
 import { getDeliveryDate } from "../../../scripts/utils/deliveryTime.js";

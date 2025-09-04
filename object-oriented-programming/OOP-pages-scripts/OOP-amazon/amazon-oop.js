@@ -1,39 +1,12 @@
-import {products,fetchProducts} from "../../OOP-data-scripts/products-oop.js";
+import products from "../../OOP-data-scripts/products-oop.js";
 import {cart} from "../../OOP-data-scripts/cart-oop.js";
 import { search } from "../../OOP-data-scripts/searchedProducts-oop.js";
 
-// 1. CALLBACK FUNCTION
-// loadProducts(renderProductsGrid)
-
-
-/*
-// 2. USING PROMISE CLASS
-
-console.log('Start-Promise');
-  new Promise((resolve,reject)=>{
-    loadProducts(()=>{
-      console.log('finished-loading');
-      resolve();
-    });
-  }).then(()=>{
-    console.log('next-Step');
-    renderProductsGrid();
-  });
-
-*/
-
-// 3. USING fetch() and promise 
-
- fetchProducts().then(()=>{
-  renderProductsGrid();
- });
 
 export const main = document.querySelector(".main");
 const searchBar = document.querySelector(".search-bar");
 export const focusThemeDiv = document.querySelector(".bar-focus");
 
-
-function renderProductsGrid(){
 
 const productGrid = document.querySelector(".products-grid");
 // console.log(productGrid);
@@ -212,4 +185,3 @@ Add to Cart
   productGrid.innerHTML = productHTML;
 }
 
-}
