@@ -1,4 +1,4 @@
-import {cart} from "../../OOP-data-scripts/cart-oop.js";
+import { cart } from "../../OOP-data-scripts/cart-oop.js";
 import products from "../../OOP-data-scripts/products-oop.js";
 import { findMatchingProductWithId } from "../../../scripts/utils/findMatchingProducts.js";
 import orderedProducts from "../../OOP-data-scripts/orderedProducts-oop.js";

@@ -1,4 +1,4 @@
-import {cart}  from "../../OOP-data-scripts/cart-oop.js";
+import { cart } from "../../OOP-data-scripts/cart-oop.js";
 
 import { getDeliveryDate } from "../../../scripts/utils/deliveryTime.js";
 
@@ -13,8 +13,6 @@ import { findMatchingProductWithId } from "../../../scripts/utils/findMatchingPr
 
 import { renderPaymentSummery } from "./paymentSummary-oop.js";
 import { renderCartProducts } from "./renderCartProducts-oop.js";
-
-
 
 const orderSummary = document.querySelector(".js-order-summary");
 console.log(orderSummary);
@@ -148,5 +146,3 @@ orderSummary.addEventListener("click", (e) => {
     renderPaymentSummery();
   }
 });
-
-

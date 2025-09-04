@@ -1,7 +1,7 @@
 import orderedProducts from "../../OOP-data-scripts/orderedProducts-oop.js";
 import { getDeliveryDate } from "../../../scripts/utils/deliveryTime.js";
 import { formatCurrency } from "../../../scripts/utils/money.js";
-import {cart} from "../../OOP-data-scripts/cart-oop.js";
+import { cart } from "../../OOP-data-scripts/cart-oop.js";
 import { findMatchingProduct } from "../../../scripts/utils/findMatchingProducts.js";
 import products from "../../OOP-data-scripts/products-oop.js";
 import { findMatchingOption } from "../../../data/deliveryOptions.js";

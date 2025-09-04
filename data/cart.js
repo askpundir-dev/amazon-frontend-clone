@@ -3,14 +3,13 @@ import { findMatchingProductWithId } from "../scripts/utils/findMatchingProducts
 import { orderedProducts } from "../scripts/checkout/paymentSummary.js";
 // import { products } from "./products.js";
 
-export let cart =JSON.parse(localStorage.getItem("cart"))||[];
+export let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-
-export function addToCart(productId,quantityToAdd=1) {
-  if(!productId) return null;
+export function addToCart(productId, quantityToAdd = 1) {
+  if (!productId) return null;
   const selectedQuantity = parseInt(quantityToAdd);
   // console.log(typeof selectedQuantity);
-  
+
   // Check if this product already exists in cart
   const cartItem = cart.find((item) => item.id === productId);
   // console.log(cartItem);
@@ -24,53 +23,46 @@ export function addToCart(productId,quantityToAdd=1) {
       id: productId,
       orderTimestamp: Date.now(), //for sorting
       quantity: selectedQuantity,
-      deliveryOptionId:'1',
+      deliveryOptionId: "1",
     });
   }
   saveToStorage();
   return 1;
 }
 
-export function saveToStorage() {  
- localStorage.setItem("cart", JSON.stringify(cart));
+export function saveToStorage() {
+  localStorage.setItem("cart", JSON.stringify(cart));
 
-localStorage.setItem('orderedProducts',JSON.stringify(orderedProducts));
-
+  localStorage.setItem("orderedProducts", JSON.stringify(orderedProducts));
 }
 
-export function deleteFromCart(productId){
-const newCart=[];
-cart.forEach(item => {
-  if(item.id !==productId)
-  newCart.push(item);
-});
-cart=newCart;
-console.log(cart);
-saveToStorage();
+export function deleteFromCart(productId) {
+  const newCart = [];
+  cart.forEach((item) => {
+    if (item.id !== productId) newCart.push(item);
+  });
+  cart = newCart;
+  console.log(cart);
+  saveToStorage();
 }
-
 
 export function getCartTotal(value) {
-  if(!value) return null;
-  return cart.reduce((acc, curItem) => acc + curItem[`${value}`]||0, 0);
+  if (!value) return null;
+  return cart.reduce((acc, curItem) => acc + curItem[`${value}`] || 0, 0);
 }
 
-
-
-export function updateDeliveryOptionId(productId,deliveryOptionId){
-//CAN DO LIKE THIS:
+export function updateDeliveryOptionId(productId, deliveryOptionId) {
+  //CAN DO LIKE THIS:
   //   let matchingProduct;
-// cart.forEach(item=>{
-//   if(item.id===productId)  matchingProduct=item;
-// });
-// console.log(matchingProduct);
-let matchingProduct=findMatchingProductWithId(cart,productId);
-console.log(matchingProduct);
+  // cart.forEach(item=>{
+  //   if(item.id===productId)  matchingProduct=item;
+  // });
+  // console.log(matchingProduct);
+  let matchingProduct = findMatchingProductWithId(cart, productId);
+  console.log(matchingProduct);
 
-matchingProduct.deliveryOptionId=deliveryOptionId;
+  matchingProduct.deliveryOptionId = deliveryOptionId;
 
-console.log(matchingProduct.deliveryOptionId);
-saveToStorage();
-
+  console.log(matchingProduct.deliveryOptionId);
+  saveToStorage();
 }
-

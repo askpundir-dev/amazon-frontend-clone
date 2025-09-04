@@ -32,12 +32,12 @@ export const search = {
       } else {
         productGrid.classList.add("is-empty");
         productGrid.innerHTML = `
-                  <div class="no-results">
-                  <img src="/images/no-results.jpg" alt="No results" class="no-results-img">
-                  <p class="no-results-text">Sorry, we don't have this product in our inventory yet.</p>
-                  <button class="no-results-btn">Go back to all products</button>
-                  </div>
-                  `;
+                                <div class="no-results">
+                                <img src="/images/no-results.jpg" alt="No results" class="no-results-img">
+                                <p class="no-results-text">Sorry, we don't have this product in our inventory yet.</p>
+                                <button class="no-results-btn">Go back to all products</button>
+                                </div>
+                                `;
 
         const noResultBtn = productGrid.querySelector(".no-results-btn");
         noResultBtn.onclick = () => {

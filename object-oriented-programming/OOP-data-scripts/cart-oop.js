@@ -62,5 +62,4 @@ class Cart {
   }
 }
 
-
 export const cart = new Cart("cart-oop"); //this is constructor invocation. It is automatically invoked when we create a new object.
