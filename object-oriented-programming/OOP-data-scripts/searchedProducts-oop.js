@@ -1,4 +1,4 @@
-import products from "./products-oop.js";
+import {products} from "./products-oop.js";
 export const search = {
   previousValue: "",
   results: [],

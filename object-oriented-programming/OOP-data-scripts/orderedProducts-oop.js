@@ -1,5 +1,5 @@
 import { getDeliveryDate } from "../../scripts/utils/deliveryTime.js";
-import cart from "./cart-oop.js";
+import {cart} from "./cart-oop.js";
 import { cartIsEmpty } from "../OOP-pages-scripts/OOP-checkout/renderCartProducts-oop.js";
 import { renderCartProducts } from "../OOP-pages-scripts/OOP-checkout/renderCartProducts-oop.js";
 

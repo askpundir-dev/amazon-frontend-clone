@@ -63,7 +63,7 @@ class Cart {
 }
 
 //generating another object with the same class
-const cart = new Cart("cart-oop"); //this is constructor invocation. It is automatically invoked when we create a new object.
+export const cart = new Cart("cart-oop"); //this is constructor invocation. It is automatically invoked when we create a new object.
 //or we can like this:
 // setting local storage key
 // cart.localStorageKey='cart-oop'
@@ -78,4 +78,32 @@ const cart = new Cart("cart-oop"); //this is constructor invocation. It is autom
 // businessCart.addToCart('101a1f2e-23b3-4cd1-a322-8f61f2c11e01');
 // console.log(businessCart);
 
-export default cart;
+
+/*
+// if i need to import cart from backend 
+
+export function loadCart(callback){
+
+  const xhr=new XMLHttpRequest();
+  
+  xhr.addEventListener('load',()=>{
+    
+  xhr.response
+  console.log(xhr.response);
+  
+  callback();
+  // console.log('load Cart');
+ 
+   
+  });
+
+
+  //SUPERSIMPLEDEV'S BACKEND
+  xhr.open('GET','https://supersimplebackend.dev/cart');
+
+  xhr.send();
+ }
+
+*/
+
+//  export default cart;
