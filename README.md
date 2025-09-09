@@ -27,11 +27,22 @@ A responsive **Amazon clone website** built with **HTML, CSS, and JavaScript**, 
 
 
 
-# Project Screenshots
+## 📸 Project Screenshots  
 
+### 🏠 Homepage  
 <img src="screenshots/homepage.png" alt="Home Page" width="600"/>
-<img src="screenshots/searchbar-focus-effect.png" alt="searchbar-focus-effect" width="600"/>
-<img src="screenshots/empty-cart.png" alt="empty-cart" width="600"/>
-<img src="screenshots/cart-with-products.png" alt="cart-with-products" width="600"/>
+
+### 🔍 Search Bar Focus Effect  
+<img src="screenshots/searchbar-focus-effect.png" alt="Searchbar Focus" width="600"/>
+
+### 🛒 Empty Cart  
+<img src="screenshots/empty-cart.png" alt="Empty Cart" width="600"/>
+
+### 🛍️ Cart with Products  
+<img src="screenshots/cart-with-products.png" alt="Cart with Products" width="600"/>
+
+### 💳 Checkout Page  
 <img src="screenshots/checkout.png" alt="Checkout Page" width="600"/>
+
+### 🚚 Tracking Page  
 <img src="screenshots/tracking.png" alt="Tracking" width="600"/>
