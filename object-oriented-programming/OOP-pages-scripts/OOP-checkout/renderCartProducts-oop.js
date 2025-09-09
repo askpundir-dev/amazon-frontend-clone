@@ -124,7 +124,7 @@ export function cartIsEmpty() {
 </div>
 <div class="cart-text-link-container">
 <p class="empty-cart-text"> Your Amazon Cart is empty</p> 
-<a class="empty-Cart-link" href="/amazon.html">Go Back To Home Page</a>
+<a class="empty-Cart-link" href="amazon.html">Go Back To Home Page</a>
 </div>
 `;
     main.classList.add("js-cart-is-empty");
