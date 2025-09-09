@@ -5,7 +5,7 @@ A responsive **Amazon clone website** built with **HTML, CSS, and JavaScript**, 
 ---
 
 ## Live Demo  
-🔗 
+🔗 https://askpundir-dev.github.io/amazon-frontend-clone/amazon.html
 
 ---
 
@@ -24,6 +24,8 @@ A responsive **Amazon clone website** built with **HTML, CSS, and JavaScript**, 
 - **JavaScript** – Interactivity  
 
 ---
+
+
 
 # Project Screenshots
 
