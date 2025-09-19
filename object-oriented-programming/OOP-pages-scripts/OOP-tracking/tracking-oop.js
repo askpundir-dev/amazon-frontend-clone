@@ -6,15 +6,57 @@ import { findMatchingProduct } from "../../../scripts/utils/findMatchingProducts
 
 const orderTrackingElement = document.querySelector(".order-tracking");
 
+const progressMap = {
+  Processing: "8%",
+  Shipped: "50%",
+  "Out For Delivery": "75%",
+  Delivered: "100%",
+};
+
+function findStatus($Package) {
+  console.log($Package);
+
+  const timeDifferenceMs =
+    $Package.statusTimestamps.delivered - $Package.statusTimestamps.preparing;
+  const estimatedTimeMs =
+    $Package.statusTimestamps.preparing + timeDifferenceMs;
+
+  console.log(estimatedTimeMs);
+
+  const timeNowMs = Date.now();
+  const orderCreatedAtMs = $Package.placedTimeMs;
+  console.log(orderCreatedAtMs);
+
+  const elapsed = timeNowMs - orderCreatedAtMs;
+
+  // Divide into 3 phases
+  const phase1End = estimatedTimeMs / 3;
+  const phase2End = (2 * estimatedTimeMs) / 3;
+  const phase3End = estimatedTimeMs;
+
+  let status;
+  if (elapsed < phase1End) {
+    status = "Processing";
+  } else if (elapsed < phase2End) {
+    status = "Shipped";
+  } else if (elapsed < phase3End) {
+    status = "Out For Delivery";
+  } else {
+    status = "Delivered";
+  }
+
+  return status;
+}
+
 function renderTrackedProduct() {
-  const product = JSON.parse(localStorage.getItem("trackedPackage")); // now a single object
+  const product = JSON.parse(localStorage.getItem("trackedPackage"));
   if (!product) {
     orderTrackingElement.innerHTML = `
-<a class="back-to-orders-link link-primary" href="orders.html">
-View all orders
-</a>
-<div>No package is being tracked right now.</div>
-`;
+      <a class="back-to-orders-link link-primary" href="orders.html">
+        View all orders
+      </a>
+      <div>No package is being tracked right now.</div>
+    `;
     return;
   }
 
@@ -22,61 +64,52 @@ View all orders
   const matchingOption = findMatchingOption(product.deliveryOptionId);
   const arrivalDate = getDeliveryDate(matchingOption.deliveryDays);
 
-  // Compute current status
-  const currentStatus = getCurrentStatus(product);
-  const statuses = ["Preparing", "Shipped", "Delivered"];
-
-  const rawPercent =
-    (statuses.indexOf(currentStatus) / (statuses.length - 1)) * 95;
-  const progressPercent = 5 + rawPercent;
+  const currentStatus = findStatus(product);
+  const progressPercent = progressMap[currentStatus];
 
   const orderTrackingHTML = `
-<a class="back-to-orders-link link-primary" href="orders.html">
-View all orders
-</a>
+    <a class="back-to-orders-link link-primary" href="orders.html">
+      View all orders
+    </a>
 
-<div class="delivery-date">
-Arriving on ${arrivalDate}
-</div>
+    <div class="delivery-date">
+      Arriving on ${arrivalDate}
+    </div>
 
-<div class="product-info">
-${matchingProduct.name}
-</div>
+    <div class="product-info">${matchingProduct.name}</div>
 
-<div class="product-info">
-Quantity: ${product.quantity}
-</div>
+    <div class="product-info">Quantity: ${product.quantity}</div>
 
-<img class="product-image" src="${matchingProduct.image}">
+    <img class="product-image" src="${matchingProduct.image}">
 
-<div class="progress-labels-container">
-${statuses
-  .map(
-    (status) => `
-<div class="progress-label ${status === currentStatus ? "current-status" : ""}">
-${status}
-</div>
-`
-  )
-  .join("")}
-</div>
+    <div class="progress-labels-container">
+      <div class="progress-label ${
+        currentStatus === "Processing" ? "current-status" : ""
+      }">Processing</div>
+      <div class="progress-label ${
+        currentStatus === "Shipped" ? "current-status" : ""
+      }">Shipped</div>
+      
+      <div class="progress-label ${
+        currentStatus === "Delivered" ? "current-status" : ""
+      }">Delivered</div>
+    </div>
 
-<div class="progress-bar-container">
-<div class="progress-bar" style="width: ${progressPercent}%"></div>
-</div>
-`;
+    <div class="progress-bar-container">
+      <div class="progress-bar" style="width: 0%"></div>
+    </div>
+  `;
 
   orderTrackingElement.innerHTML = orderTrackingHTML;
+
+  // ✅ Animate after DOM update
+  const progressBar = orderTrackingElement.querySelector(".progress-bar");
+  requestAnimationFrame(() => {
+    progressBar.style.width = progressPercent;
+  });
 }
 
-function getCurrentStatus(product) {
-  const now = Date.now();
-  const { preparing, shipped, delivered } = product.statusTimestamps;
-
-  if (now >= delivered) return "Delivered";
-  if (now >= shipped) return "Shipped";
-  if (now >= preparing) return "Preparing"; // ✅ added preparing
-}
+// ✅ Header update
 const header = document.querySelector(".amazon-header");
 header.querySelector(".cart-quantity").innerHTML = `${cart.getCartTotal(
   "quantity"

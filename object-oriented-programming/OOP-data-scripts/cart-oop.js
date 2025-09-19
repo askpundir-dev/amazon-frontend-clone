@@ -25,7 +25,7 @@ class Cart {
     } else {
       this.cartItems.push({
         id: productId,
-        orderTimestamp: Date.now(),
+        addToCartTimeMs: Date.now(),
         quantity: selectedQuantity,
         deliveryOptionId: "1",
       });

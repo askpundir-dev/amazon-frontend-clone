@@ -125,14 +125,13 @@ orderSummary.addEventListener("click", (e) => {
   if (e.target.closest(`.js-save`)) {
     console.log("Save clicked:", id, saveBtn);
     saveUpdatedQuantity(id, updateBtn, saveBtn);
-    if (!cart.cartItems.length) renderCartProducts();
+     if (!cart.cartItems.length) renderCartProducts();
   } else if (deleteBtn) {
     console.log("Delete clicked:", id);
     cart.deleteFromCart(id);
     removeProductContainer(id);
     showTotalCheckoutQuantity();
     renderPaymentSummery();
-    // console.log(cart.length);
     if (!cart.cartItems.length) renderCartProducts();
   }
 

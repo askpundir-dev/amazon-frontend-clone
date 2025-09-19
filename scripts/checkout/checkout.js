@@ -32,7 +32,7 @@ function showTotalCheckoutQuantity() {
   const itemsQuantity = getCartTotal("quantity");
   // console.log(total);
   //SHOWS TOTAL ITEMS AT THE TOP OF THE SCREEN
-  domElements.checkOut.innerHTML = `${itemsQuantity} items`;
+  domElements.checkOut.innerText = `${itemsQuantity} items`;
   console.log(domElements);
   //SHOWS TOTAL ITEMS IN ORDER SUMMARY
   // document.querySelector('.order-sumry-total-items').innerHTML=`Items (${itemsQuantity}):`

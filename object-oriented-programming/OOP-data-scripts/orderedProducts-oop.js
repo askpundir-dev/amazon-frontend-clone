@@ -1,8 +1,7 @@
 import { getDeliveryDate } from "../../scripts/utils/deliveryTime.js";
-import {cart} from "./cart-oop.js";
-import { cartIsEmpty } from "../OOP-pages-scripts/OOP-checkout/renderCartProducts-oop.js";
-import { renderCartProducts } from "../OOP-pages-scripts/OOP-checkout/renderCartProducts-oop.js";
-
+import { findMatchingProduct } from "../../scripts/utils/findMatchingProducts.js";
+import { cart } from "./cart-oop.js";
+import products from "./products-oop.js";
 class Order {
   products;
 
@@ -19,22 +18,33 @@ class Order {
   }
 
   placeYourOrder(totalCents) {
-    const dateToady = getDeliveryDate(); //if no argument is passed gets the today's date
-    console.log(dateToady);
-    let orderedProds = [...cart.cartItems];
+    // const dateToady = getDeliveryDate(); //if no argument is passed gets the today's date
+    // console.log(dateToady);
+
+    const deliveryDaysMap = {
+      1: "7",
+      2: "3",
+      3: "1",
+    };
+
+    const orderedProds = cart.cartItems.map((prods) => {
+      return {
+        ...prods,
+        deliveryDays: deliveryDaysMap[prods.deliveryOptionId] || 0,
+      };
+    });
+
     const orderId = crypto.randomUUID();
 
     this.products.push({
       orderId,
-      orderPlacedDate: dateToady,
+     // orderPlacedDate: dateToady,
       orderTimestamp: Date.now(),
       orderTotalPrice: totalCents,
       ordered: orderedProds,
     });
     cart.cartItems.splice(0, cart.cartItems.length);
     cart.saveToStorage();
-    cartIsEmpty();
-    renderCartProducts();
     this.saveToStorage();
     console.log(orderedProducts);
   }

@@ -13,11 +13,10 @@ export function renderCartProducts(orderSummary) {
   if (cart.cartItems.length) {
     let summaryHTML = "";
     const sortedProducts = cart.cartItems.sort(
-      (a, b) => b.orderTimestamp - a.orderTimestamp
+      (a, b) => b.addToCartTimeMs - a.addToCartTimeMs
     );
     sortedProducts.forEach((cartItem) => {
       let matchingProduct = findMatchingProduct(products, cartItem);
-
       const deliveryOptionId = cartItem.deliveryOptionId;
       const deliveryOption = findMatchingOption(deliveryOptionId);
       const html = `<div class="cart-item-container js-remove-from-cart-${
@@ -106,7 +105,7 @@ ${priceString}
   }
 }
 
-export function cartIsEmpty() {
+function cartIsEmpty() {
   const header = document.querySelector(".checkout-header");
   const main = document.querySelector(".main");
   const bgOverlay = document.querySelector(".cart-background-color");

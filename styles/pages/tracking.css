@@ -43,7 +43,6 @@
   margin-bottom: 15px;
 }
 
-
 @media (max-width: 575px) {
   .progress-labels-container {
     font-size: 16px;
@@ -62,23 +61,20 @@
 }
 
 .progress-bar-container {
-  height: 25px;
+  height: 20px;
   width: 100%;
-
-  border: 1px solid rgb(200, 200, 200);
+  background: #e9ecef;
   border-radius: 50px;
   overflow: hidden;
+  margin-top: 10px;
 }
-
 .progress-bar {
   height: 100%;
-  background-color: green;
+  background: linear-gradient(90deg, #198754, #28a745);
   border-radius: 50px;
-  width: 5%;
-  transition: width 0.5s ease;
+  transition: width 700ms ease-in-out; /* smooth animation */
 }
 
 .current-status {
   color: rgb(6, 125, 98);
-  
 }
