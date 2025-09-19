@@ -38,10 +38,10 @@ A responsive **Amazon clone website** built with **HTML, CSS, and JavaScript**, 
 ### 🛒 Empty Cart  
 <img src="screenshots/empty-cart.png" alt="Empty Cart" width="600"/>
 
-### 🛍️ Cart with Products  
+### 🛍️ Cart with Products/Checkout Page  
 <img src="screenshots/cart-with-products.png" alt="Cart with Products" width="600"/>
 
-### 💳 Checkout Page  
+### 💳 Orders Page  
 <img src="screenshots/checkout.png" alt="Checkout Page" width="600"/>
 
 ### 🚚 Tracking Page  
