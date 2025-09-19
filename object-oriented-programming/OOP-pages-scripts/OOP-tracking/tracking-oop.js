@@ -7,7 +7,7 @@ import { findMatchingProduct } from "../../../scripts/utils/findMatchingProducts
 const orderTrackingElement = document.querySelector(".order-tracking");
 
 const progressMap = {
-  Processing: "8%",
+  Processing: "6%",
   Shipped: "50%",
   "Out For Delivery": "75%",
   Delivered: "100%",
